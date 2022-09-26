@@ -2,7 +2,7 @@
 @section('dashboard')
 <div class="container-fluid row">
     <div class="dashboard-chart col-lg-8 col-md-8 col-sm-8">
-        <span>Biểu đồ cấp số</span>
+        <span class="title-page">Biểu đồ cấp số</span>
         <div class="row">
             <div class="col-xl-3 col-md-6">
                 <div class="card">
@@ -84,13 +84,16 @@
         <div class="report-chart">
             <div class="content-chart">
                 <span class="title-chart">Bảng thống kê theo ngày</span>
-                <div class="package">
+                <div class="select-option">
+                    <div class="dropdown day-select" id="dropdown">
+                        <input type="text" name="day-status" id="day-status" placeholder="Ngày" readonly>
+                        <div class="option day-status">
+                            <div class="option-item active" onclick="chooseOption('day-status', 0)">Ngày</div>
+                            <div class="option-item" onclick="chooseOption('day-status', 1)">Tuần</div>
+                            <div class="option-item" onclick="chooseOption('day-status', 2)">Tháng</div>
+                        </div>
+                    </div>
                     <span>Xem theo</span>
-                    <select name="package-option" id="package-option" class="package-option">
-                        <option value="">Ngày</option>
-                        <option value="">Tuần</option>
-                        <option value="">Tháng</option>
-                    </select>
                 </div>
             </div>
             <span>Tháng 11/2021</span>
@@ -103,7 +106,7 @@
         <span class="title-overview">Tổng quan</span>
         <div class="device overview-items ">
             <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="big-circle">
+                <div class="big-circle" id="big-circle" data-percent="90" class="big dark blue">
                     <div class="small-circle">
                         <span>90%</span>
                     </div>
@@ -198,4 +201,5 @@
     </div>
 </div>
 <script src='{{asset('assets/admins/js/calendar.js')}}'></script>
+<script src='{{asset('assets/admins/js/option.js')}}'></script>
 @endsection

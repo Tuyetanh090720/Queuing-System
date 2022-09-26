@@ -29,6 +29,9 @@ Route::prefix('admins')->name('admins.')->group(function() {
     Route::get('/account', function(){
         return view('/admins/account');
     });
+    Route::get('/device', function(){
+        return view('/admins/device');
+    });
 
     Route::prefix('customers')->name('customers.')->group(function() {
 

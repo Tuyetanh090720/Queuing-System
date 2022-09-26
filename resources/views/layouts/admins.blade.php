@@ -9,6 +9,7 @@
         <meta name="author" content="" />
         <title>Trang Chủ - SB Admin</title>
         <link rel="stylesheet" href="{{asset('assets/admins/css/styles.css')}}">
+        <link rel='stylesheet' href='https://cdn.rawgit.com/pguso/jquery-plugin-circliful/master/css/jquery.circliful.css'>
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
     </head>
@@ -18,6 +19,7 @@
         @include('admins.blocks.topbar')
         @yield('dashboard')
         @yield('account')
+        @yield('device')
 
 
         @yield('edit-customers')

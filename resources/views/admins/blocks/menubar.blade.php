@@ -7,7 +7,7 @@
                     <a class="logo-header" href="{{route('admins.')}}">
                         <img src="{{asset('assets/admins/img/Logo alta.png')}}" alt="">
                     </a>
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                    <a class="nav-link collapsed active" href="#" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
                         <div class="sb-nav-link-icon"><i class="fa fa-window-restore"></i></div>
                         Dashboard
                     </a>

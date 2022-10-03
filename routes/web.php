@@ -1,6 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admins\DeviceController;
+use App\Http\Controllers\admins\ServiceController;
+use App\Http\Controllers\admins\NumberController;
+use App\Http\Controllers\admins\ReportController;
+use App\Http\Controllers\admins\RightController;
+use App\Http\Controllers\admins\AccountController;
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,69 +40,96 @@ Route::prefix('admins')->name('admins.')->group(function() {
         return view('/admins/account');
     });
     Route::get('/device', function(){
-        return view('/admins/device');
+        return view('/admins/list');
     });
 
-    Route::prefix('customers')->name('customers.')->group(function() {
+    Route::prefix('accounts')->name('accounts.')->group(function() {
 
-        Route::get('/lists', [CustomerController::class, 'index'])->name('lists');
+        Route::get('/list', [AccountController::class, 'index'])->name('list');
 
-        Route::get('/edit/{id}', [CustomerController::class, 'edit'])->name('edit');
+        Route::get('/add', [AccountController::class, 'add'])->name('add');
 
-        Route::post('/edit/{id}', [CustomerController::class, 'update'])->name('update');
+        Route::post('/add', [AccountController::class, 'store'])->name('store');
 
-        Route::get('/delete/{id}', [CustomerController::class, 'delete'])->name('delete');
+        Route::get('/detail', [AccountController::class, 'detail'])->name('detail');
+
+        Route::get('/edit/{id}', [AccountController::class, 'edit'])->name('edit');
+
+        Route::post('/edit/{id}', [AccountController::class, 'update'])->name('update');
+
+        Route::get('/delete/{id}', [AccountController::class, 'delete'])->name('delete');
+
+        Route::get('/diary', [AccountController::class, 'diary'])->name('diary');
     });
 
-    Route::prefix('contacts')->name('contacts.')->group(function() {
+    Route::prefix('devices')->name('devices.')->group(function() {
 
-        Route::get('/lists', [AdContactController::class, 'index'])->name('lists');
+        Route::get('/list', [DeviceController::class, 'index'])->name('list');
 
-        Route::get('/edit/{id}', [AdContactController::class, 'edit'])->name('edit');
+        Route::get('/add', [DeviceController::class, 'add'])->name('add');
 
-        Route::post('/edit/{id}', [AdContactController::class, 'update'])->name('update');
+        // Route::post('/add', [DeviceController::class, 'store'])->name('store');
 
-        Route::get('/delete/{id}', [AdContactController::class, 'delete'])->name('delete');
+        Route::get('/detail/{id}', [DeviceController::class, 'detail'])->name('detail');
+
+        Route::get('/edit/{id}', [DeviceController::class, 'edit'])->name('edit');
+
+        // Route::post('/edit/{id}', [DeviceController::class, 'update'])->name('update');
+
+        // Route::get('/delete/{id}', [DeviceController::class, 'delete'])->name('delete');
     });
 
-    Route::prefix('orders')->name('orders.')->group(function() {
+    Route::prefix('services')->name('services.')->group(function() {
 
-        Route::get('/lists', [OrderController::class, 'index'])->name('lists');
+        Route::get('/list', [ServiceController::class, 'index'])->name('list');
 
-        Route::get('/edit/{id}', [OrderController::class, 'edit'])->name('edit');
+        Route::get('/add', [ServiceController::class, 'add'])->name('add');
 
-        Route::post('/edit/{id}', [OrderController::class, 'update'])->name('update');
+        // Route::post('/add', [ServiceController::class, 'store'])->name('store');
 
-        Route::get('/delete/{id}', [OrderController::class, 'delete'])->name('delete');
+        Route::get('/detail/{id}', [ServiceController::class, 'detail'])->name('detail');
+
+        Route::get('/edit/{id}', [ServiceController::class, 'edit'])->name('edit');
+
+        // Route::post('/edit/{id}', [ServiceController::class, 'update'])->name('update');
+
+        // Route::get('/delete/{id}', [ServiceController::class, 'delete'])->name('delete');
     });
 
-    Route::prefix('ticket_types')->name('ticket_types.')->group(function() {
+    Route::prefix('numbers')->name('numbers.')->group(function() {
 
-        Route::get('/lists', [TicketTypeController::class, 'index'])->name('lists');
+        Route::get('/list', [NumberController::class, 'index'])->name('list');
 
-        Route::get('/add', [TicketTypeController::class, 'add'])->name('add');
+        Route::get('/add', [NumberController::class, 'add'])->name('add');
 
-        Route::post('/add', [TicketTypeController::class, 'store'])->name('store');
+        // Route::post('/add', [NumberController::class, 'store'])->name('store');
 
-        Route::get('/edit/{id}', [TicketTypeController::class, 'edit'])->name('edit');
+        Route::get('/detail/{id}', [NumberController::class, 'detail'])->name('detail');
 
-        Route::post('/edit/{id}', [TicketTypeController::class, 'update'])->name('update');
+        Route::get('/edit/{id}', [NumberController::class, 'edit'])->name('edit');
 
-        Route::get('/delete/{id}', [TicketTypeController::class, 'delete'])->name('delete');
+        // Route::post('/edit/{id}', [NumberController::class, 'update'])->name('update');
+
+        // Route::get('/delete/{id}', [NumberController::class, 'delete'])->name('delete');
     });
 
-    Route::prefix('events')->name('events.')->group(function() {
+    Route::prefix('reports')->name('reports.')->group(function() {
 
-        Route::get('/lists', [AdEventController::class, 'index'])->name('lists');
+        Route::get('/list', [ReportController::class, 'index'])->name('list');
+    });
 
-        Route::get('/add', [AdEventController::class, 'add'])->name('add');
+    Route::prefix('rights')->name('rights.')->group(function() {
 
-        Route::post('/add', [AdEventController::class, 'store'])->name('store');
+        Route::get('/list', [RightController::class, 'index'])->name('list');
 
-        Route::get('/edit/{id}', [AdEventController::class, 'edit'])->name('edit');
+        Route::get('/add', [RightController::class, 'add'])->name('add');
 
-        Route::post('/edit/{id}', [AdEventController::class, 'update'])->name('update');
+        Route::post('/add', [RightController::class, 'store'])->name('store');
 
-        Route::get('/delete/{id}', [AdEventController::class, 'delete'])->name('delete');
+        Route::get('/edit/{id}', [RightController::class, 'edit'])->name('edit');
+
+        Route::post('/edit/{id}', [RightController::class, 'update'])->name('update');
+
+        Route::get('/delete/{id}', [RightController::class, 'delete'])->name('delete');
     });
 });

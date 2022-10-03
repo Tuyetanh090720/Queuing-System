@@ -28,6 +28,7 @@ function chooseOption(anything, i) {
         l.classList.remove('active')
     })
 
+
     optionList[i].classList.add('active')
     count = 1
 }

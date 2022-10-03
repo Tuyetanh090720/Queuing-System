@@ -5,12 +5,12 @@
         </ul>
     </div>
     <div class="row navbar-info col-lg-3 col-md-3 col-sm-3">
-        <div class="navbar-icon col-lg-1 col-md-1" id="btn-bell">
+        <div class="col-lg-1 col-md-1" id="btn-bell">
             <i class="fa fa-bell"></i>
         </div>
         <div class="col-lg-1 col-md-1">
             <div class="navbar-img">
-                <img src="{{asset('assets/admins/img/avatar.jpg')}}" alt="">
+                <a href="{{route('admins.accounts.detail')}}"><img src="{{asset('assets/admins/img/avatar.jpg')}}" alt=""></a>
             </div>
         </div>
         <div class="col-lg-8 col-md-8">

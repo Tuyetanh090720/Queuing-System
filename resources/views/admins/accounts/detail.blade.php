@@ -1,7 +1,7 @@
 @extends('layouts.admins')
 @section('account')
 <div class="container-fluid">
-    <div class="account-block row">
+    <div class="account-white row">
         <div class="avatar-block col-lg-3 col-md-6 col-sm-6">
             <div class="avatar">
                 <div class="avatar-img"><img src="{{asset('assets/admins/img/avatar.jpg')}}" alt=""></div>
@@ -36,7 +36,5 @@
             </div>
         </div>
     </div>
-
-
 </div>
 @endsection

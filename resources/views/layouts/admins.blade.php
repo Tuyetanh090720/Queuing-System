@@ -19,25 +19,34 @@
         @include('admins.blocks.topbar')
         @yield('dashboard')
         @yield('account')
-        @yield('device')
+
+        @yield('device-list')
+        @yield('device-add')
+        @yield('device-detail')
+        @yield('device-edit')
+
+        @yield('service-list')
+        @yield('service-add')
+        @yield('service-detail')
+        @yield('service-edit')
 
 
-        @yield('edit-customers')
-        @yield('lists-customers')
+        @yield('number-list')
+        @yield('number-add')
+        @yield('number-detail')
 
-        @yield('add-ticket-types')
-        @yield('edit-ticket-types')
-        @yield('lists-ticket-types')
+        @yield('report-list')
 
-        @yield('edit-contacts')
-        @yield('lists-contacts')
+        @yield('right-list')
+        @yield('right-add')
+        @yield('right-detail')
+        @yield('right-edit')
 
-        @yield('edit-orders')
-        @yield('lists-orders')
-
-        @yield('add-events')
-        @yield('edit-events')
-        @yield('lists-events')
+        @yield('account-list')
+        @yield('account-diary')
+        @yield('account-add')
+        @yield('account-detail')
+        @yield('account-edit')
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

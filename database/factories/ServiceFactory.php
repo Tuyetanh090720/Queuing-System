@@ -14,7 +14,12 @@ class ServiceFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'serviceName'  => $this->faker->name(),
+            'serviceIP' => $this->faker->phoneNumber(),
+            'serviceActiveST' => $this->faker->sentence(3, true),
+            'serviceConnectST' => $this->faker->sentence(3, true),
+            'created_at' => $this->faker->date(),
+            'updated_at' => $this->faker->date(),
         ];
     }
 }

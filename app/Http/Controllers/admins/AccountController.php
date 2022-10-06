@@ -5,52 +5,106 @@ namespace App\Http\Controllers\admins;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\account;
+use App\Models\right;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Illuminate\Database\Eloquent\Model;
 
 class AccountController extends Controller
 {
+    // public function showLogin(){
+    //     return view('auth.login');
+    // }
+
+    // public function login(Request $rq){
+
+    //     dd(Auth::attempt(['accountLogin' => $rq->accountLogin]));
+
+    //     if (Auth::attempt(['accountLogin' => $rq->accountLogin, 'accountPw' => $rq->password])) {
+    //         dd($rq->accountLogin);
+    //         return redirect()->route('admins.dashboard');
+    //     } else {
+    //         dd($rq->accountLogin);
+    //     }
+    // }
+
     public function index()
     {
         $accounts = new account();
 
-        // $ticketTypesList = $devices->getAllTicketTypes();
+        $accountsList = $accounts->getAllAccounts();
 
-        // return view('admins.ticket_types.lists', compact('ticketTypesList'));
-
-        return view('admins.accounts.list');
+        return view('admins.accounts.list', compact('accountsList'));
 
     }
+
+    // public function diary()
+    // {
+    //     return view('admins.accounts.diary');
+    // }
 
     public function add()
     {
         return view('admins.accounts.add');
     }
 
-    // public function store(Request $rq)
-    // {
-    //     $arrdate = ['updated_at' => date('Y-m-d'), 'created_at' => date('Y-m-d')];
-
-    //     $data = array_merge($rq->only('ticketTypeName', 'ticketTypeHeight', 'weekdays', 'money'), $arrdate);
-
-    //     $ticketTypes = new ticketType();
-
-    //     $ticketTypesList = $ticketTypes->addTicketTypes($data);
-
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
-
-    public function detail()
+    public function store(Request $rq)
     {
-        return view('admins.accounts.detail');
+        $accounts = new account();
+
+        $rights = new right();
+        $rightsList = $rights->getAllRights();
+
+        foreach($rightsList as $item){
+            if($item->rightName == $rq->rightName){
+                $rightId = $item->rightId;
+            }
+        };
+
+        $accounts->accountName = $rq->accountName;
+
+        $accounts->accountPhone = $rq->accountPhone;
+
+        $accounts->accountEmail = $rq->accountEmail;
+
+        $accounts->rightId = $rightId;
+
+        $accounts->accountLogin = $rq->accountLogin;
+
+        $accounts->accountPw = bcrypt($rq->accountPw);
+
+        $accounts->updated_at = date('Y-m-d');
+
+        $accounts->created_at = date('Y-m-d');
+
+        $accounts->accountActiveST = $rq->accountActiveST;
+
+        $accounts->save();
+
+        return redirect()->route('login');
+    }
+
+    public function detail($id)
+    {
+        $accounts = new account();
+        $account = $accounts->getAccountDetail($id);
+
+        $rights = new right();
+        $right = $rights->getRightID($account->rightId);
+
+        return view('admins.accounts.detail', compact('account', 'right'));
     }
 
     public function edit($id)
     {
-        // $ticketTypes = new ticketType();
+        $accounts = new account();
+        $account = $accounts->getAccountDetail($id);
 
-        // $ticketType = $ticketTypes->getTicketTypes($id);
+        $rights = new right();
+        $right = $rights->getRightID($account->rightId);
 
-        // return view('admins.ticket_types.edit', compact('ticketType'));
-        return view('admins.accounts.edit');
+        return view('admins.accounts.edit', compact('account', 'right'));
 
     }
 
@@ -76,8 +130,5 @@ class AccountController extends Controller
 
     //     return redirect()->route('admins.ticket_types.lists');
     // }
-    public function diary()
-    {
-        return view('admins.accounts.diary');
-    }
+
 }

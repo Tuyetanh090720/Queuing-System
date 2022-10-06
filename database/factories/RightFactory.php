@@ -14,7 +14,10 @@ class RightFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'rightName'  => $this->faker->name(),
+            'rightDescription' => $this->faker->sentence(5, true),
+            'created_at' => $this->faker->date(),
+            'updated_at' => $this->faker->date(),
         ];
     }
 }

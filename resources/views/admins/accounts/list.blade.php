@@ -46,62 +46,31 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #34CD26"></i> Hoạt động</td>
-                            <td style="text-align: center;">
-                                <a href="/admins/accounts/edit/1">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #EC3740"></i> Ngưng hoạt động</td>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #34CD26"></i> Hoạt động</td>
-                            </td>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #EC3740"></i> Ngưng hoạt động</td>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
+                        @if (!empty($accountsList))
+                            @foreach ($accountsList as $item)
+                                <tr>
+                                    <td>{{$item->accountLogin}}</td>
+                                    <td>{{$item->accountName}}</td>
+                                    <td>{{$item->accountPhone}}</td>
+                                    <td>{{$item->accountEmail}}</td>
+                                    <td>{{$item->rightId}}</td>
+                                    @if ($item->accountActiveST == "Hoạt động")
+                                    <td><i class="fa fa-circle" style="color: #34CD26"></i> {{$item->accountActiveST}}</td>
+                                    @else
+                                    <td><i class="fa fa-circle" style="color: #EC3740"></i> {{$item->accountActiveST}}</td>
+                                    @endif
+                                    <td style="text-align: center;">
+                                        <a href="/admins/accounts/edit/{{$item->accountId}}">Cập nhật
+                                            <ion-icon name="create-outline"></ion-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="4">Không có người dùng</td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>

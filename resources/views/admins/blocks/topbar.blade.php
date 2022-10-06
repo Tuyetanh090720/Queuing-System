@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-1 col-md-1">
             <div class="navbar-img">
-                <a href="{{route('admins.accounts.detail')}}"><img src="{{asset('assets/admins/img/avatar.jpg')}}" alt=""></a>
+                <a href="/admins/accounts/detail/1"><img src="{{asset('assets/admins/img/avatar.jpg')}}" alt=""></a>
             </div>
         </div>
         <div class="col-lg-8 col-md-8">

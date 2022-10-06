@@ -14,8 +14,14 @@ class CreateDevicesTable extends Migration
     public function up()
     {
         Schema::create('devices', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->increments('deviceId');
+            $table->string('deviceName');
+            $table->string('deviceDescription');
+            $table->string('deviceActiveST');
+            $table->unsignedInteger('serviceId');
+            $table->foreign('serviceId')->references('serviceId')->on('services');
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

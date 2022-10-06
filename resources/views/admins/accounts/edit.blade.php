@@ -1,35 +1,35 @@
 @extends('layouts.admins')
 @section('account-edit')
 <div class="container-fluid">
-    <span class="title-page">Quản lý thiết bị</span>
+    <span class="title-page">Quản lý tài khoản</span>
     <div class="container-white">
         <div class="account-edit">
-            <span class="title-add">Thông tin dịch vụ</span>
+            <span class="title-add">Thông tin tài khoản</span>
             <form action="">
                 @csrf
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12" style="padding-right:25px">
                         <div class="form-group">
-                            <label for="deviceId">Họ tên</label>
-                            <input type="text" class="form-control" name="deviceId" required>
+                            <label for="accountName">Họ tên</label>
+                            <input type="text" class="form-control" name="accountName" value="{{$account->accountName}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="deviceName">Số điện thoại</label>
-                            <input type="text" class="form-control" name="deviceId" required>
+                            <label for="accountPhone">Số điện thoại</label>
+                            <input type="text" class="form-control" name="accountPhone" value="{{$account->accountPhone}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="addressIp">Email</label>
-                            <input type="text" class="form-control" name="addressIp" required>
+                            <label for="accountEmail">Email</label>
+                            <input type="text" class="form-control" name="accountEmail" value="{{$account->accountEmail}}" required>
                         </div>
                         <div class="select-input">
                             <div class="dropdown">
                                 <div class="form-group">
-                                    <label for="deviceType">Vai trò</label>
-                                    <input type="text" id="deviceType" placeholder="Tất cả" readonly>
-                                    <div class="option deviceType">
-                                        <div class="option-item active" onclick="chooseOption('deviceType', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('deviceType', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('deviceType', 2)">Ngưng hoạt động</div>
+                                    <label for="rightName">Vai trò</label>
+                                    <input type="text" id="rightName" placeholder="Tất cả" value="{{$right->rightName}}" required>
+                                    <div class="option rightName">
+                                        <div class="option-item active" onclick="chooseOption('rightName', 0)">Tất cả</div>
+                                        <div class="option-item" onclick="chooseOption('rightName', 1)">Hoạt động</div>
+                                        <div class="option-item" onclick="chooseOption('rightName', 2)">Ngưng hoạt động</div>
                                     </div>
                                 </div>
                             </div>
@@ -37,26 +37,26 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for="loginname">Tên đăng nhập</label>
-                            <input type="text" class="form-control" name="loginname" required>
+                            <label for="accountLogin">Tên đăng nhập</label>
+                            <input type="text" class="form-control" name="accountLogin" value="{{$account->accountLogin}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">Mật khẩu</label>
-                            <input type="text" class="form-control" name="password" required>
+                            <label for="accountPw">Mật khẩu</label>
+                            <input type="text" class="form-control" name="accountPw" value="{{$account->accountPw}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="password">Nhập lại mật khẩu</label>
-                            <input type="text" class="form-control" name="password" required>
+                            <label for="password-confirm">Nhập lại mật khẩu</label>
+                            <input type="text" class="form-control" name="password-confirm" value="{{$account->accountPw}}" required>
                         </div>
                         <div class="select-input">
                             <div class="dropdown">
                                 <div class="form-group">
-                                    <label for="deviceType">Trạng thái hoạt động</label>
-                                    <input type="text" id="deviceType" placeholder="Tất cả" readonly>
-                                    <div class="option deviceType">
-                                        <div class="option-item active" onclick="chooseOption('deviceType', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('deviceType', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('deviceType', 2)">Ngưng hoạt động</div>
+                                    <label for="accountActiveST">Trạng thái hoạt động</label>
+                                    <input type="text" id="accountActiveST" placeholder="Tất cả" value="{{$account->accountActiveST}}" readonly>
+                                    <div class="option accountActiveST">
+                                        <div class="option-item active" onclick="chooseOption('accountActiveST', 0)">Tất cả</div>
+                                        <div class="option-item" onclick="chooseOption('accountActiveST', 1)">Hoạt động</div>
+                                        <div class="option-item" onclick="chooseOption('accountActiveST', 2)">Ngưng hoạt động</div>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                         <a href="">Hủy</a>
                     </button>
                     <button class="btn btn-login">
-                        <a href="">Cập nhật</a>
+                        Cập nhật
                     </button>
                 </div>
             </form>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRightsTable extends Migration
+class CreateCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateRightsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rights', function (Blueprint $table) {
-            $table->increments('rightId');
-            $table->string('rightName');
-            $table->string('rightDescription');
+        Schema::create('customers', function (Blueprint $table) {
+            $table->increments('customerId');
+            $table->string('customerName');
+            $table->string('customerPhone');
+            $table->string('customerEmail');
             $table->date('created_at');
             $table->date('updated_at');
         });
@@ -29,6 +30,6 @@ class CreateRightsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rights');
+        Schema::dropIfExists('customers');
     }
 }

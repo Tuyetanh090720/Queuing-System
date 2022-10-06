@@ -14,8 +14,17 @@ class CreateNumbersTable extends Migration
     public function up()
     {
         Schema::create('numbers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->increments('numberId');
+            $table->unsignedInteger('customerId');
+            $table->foreign('customerId')->references('customerId')->on('customers');
+            $table->unsignedInteger('deviceId');
+            $table->foreign('deviceId')->references('deviceId')->on('devices');
+            $table->string('numberTime');
+            $table->string('numberExpiry');
+            $table->string('numberST');
+            $table->string('numberSupply');
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

@@ -14,7 +14,14 @@ class NumberFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'customerId' => $this->faker->numberBetween($min = 1, $max = 5),
+            'deviceId' => $this->faker->numberBetween($min = 1, $max = 5),
+            'numberTime' => $this->faker->date(),
+            'numberExpiry' => $this->faker->date(),
+            'numberST' => $this->faker->sentence(3, true),
+            'numberSupply' => $this->faker->sentence(3, true),
+            'created_at' => $this->faker->date(),
+            'updated_at' => $this->faker->date(),
         ];
     }
 }

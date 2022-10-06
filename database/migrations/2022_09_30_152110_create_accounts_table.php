@@ -14,8 +14,17 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->increments('accountId');
+            $table->string('accountName');
+            $table->string('accountLogin');
+            $table->string('accountPw');
+            $table->string('accountPhone');
+            $table->string('accountEmail');
+            $table->string('accountActiveST');
+            $table->unsignedInteger('rightId');
+            $table->foreign('rightId')->references('rightId')->on('rights');
+            $table->date('created_at');
+            $table->date('updated_at');
         });
     }
 

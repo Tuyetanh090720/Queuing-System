@@ -7,32 +7,32 @@
                 <div class="avatar-img"><img src="{{asset('assets/admins/img/avatar.jpg')}}" alt=""></div>
                 <div class="camera"><i class="fa fa-camera"></i></div>
             </div>
-            <span>Lê Thị Thu Thuy</span>
+            <span>{{$item->accountName}}</span>
         </div>
         <div class="account-information col-lg-9 col-md-6 col-sm-6">
             <div class="form-group">
-                <label for="username">Tên người dùng</label>
-                <input type="text" class="form-control" name="username" id="username" readonly>
+                <label for="accountName">Tên người dùng</label>
+                <input type="text" class="form-control" name="accountName" value="{{$item->accountName}}" id="accountName" readonly>
             </div>
             <div class="form-group">
-                <label for="loginname">Tên đăng nhập</label>
-                <input type="text" class="form-control" name="loginname" value="" id="loginname" readonly>
+                <label for="accountLogin">Tên đăng nhập</label>
+                <input type="text" class="form-control" name="accountLogin" value="{{$item->accountLogin}}" id="accountLogin" readonly>
             </div>
             <div class="form-group">
-                <label for="phone">Số điện thoại</label>
-                <input type="text" class="form-control" name="phone" value="" id="phone" readonly>
+                <label for="accountPhone">Số điện thoại</label>
+                <input type="text" class="form-control" name="accountPhone" value="{{$item->accountPhone}}" id="accountPhone" readonly>
             </div>
             <div class="form-group">
-                <label for="password">Mật khẩu</label>
-                <input type="text" class="form-control" name="password" value="" id="password" readonly>
+                <label for="accountPw">Mật khẩu</label>
+                <input type="text" class="form-control" name="accountPw" value="{{$item->accountPw}}" id="accountPw" readonly>
             </div>
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" class="form-control" name="email" value="" id="email" readonly>
+                <label for="accountEmail">Email</label>
+                <input type="text" class="form-control" name="accountEmail" value="{{$item->accountEmail}}" id="accountEmail" readonly>
             </div>
             <div class="form-group">
-                <label for="type">Vai trò</label>
-                <input type="text" class="form-control" name="type" value="" id="type" readonly>
+                <label for="rightName">Vai trò</label>
+                <input type="text" class="form-control" name="rightName" value="{{$right->rightname}}" id="rightName" readonly>
             </div>
         </div>
     </div>

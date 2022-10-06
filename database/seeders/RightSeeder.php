@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\right;
+
 
 class RightSeeder extends Seeder
 {
@@ -13,6 +15,7 @@ class RightSeeder extends Seeder
      */
     public function run()
     {
-        //
+        right::factory()->times(3)->create();
+
     }
 }

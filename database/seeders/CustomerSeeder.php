@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\customer;
 
-class ReportSeeder extends Seeder
+class CustomerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +14,6 @@ class ReportSeeder extends Seeder
      */
     public function run()
     {
-        //
+        customer::factory()->times(3)->create();
     }
 }

@@ -7,6 +7,10 @@
                     <a class="logo-header" href="/admins/">
                         <img src="{{asset('assets/admins/img/Logo alta.png')}}" alt="">
                     </a>
+                    <a class="nav-link collapsed" href="/admins/" >
+                        <div class="sb-nav-link-icon"><i class="fa fa-window-restore"></i></div>
+                        Dashboard
+                    </a>
                     <a class="nav-link collapsed" href="/admins/devices/list" >
                         <div class="sb-nav-link-icon"><i class="fa fa-desktop"></i></div>
                         Thiết bị
@@ -19,11 +23,11 @@
                         <div class="sb-nav-link-icon"><i class="fa fa-layer-group"></i></div>
                         Cấp số
                     </a>
-                    <a class="nav-link collapsed" href="/admins/reports/list">
+                    <a class="nav-link collapsed" href="/admins/reports">
                         <div class="sb-nav-link-icon"><i class="fa fa-chart-column"></i></div>
                         Báo cáo
                     </a>
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-expanded="false" data-target="#collapse6" aria-controls="collapse6">
+                    <a class="nav-link collapsed" href="/" data-toggle="collapse" aria-expanded="false" data-target="#collapse6" aria-controls="collapse6">
                         <div class="sb-nav-link-icon"><i class="fa fa-gear"></i></div>
                         Cài đặt hệ thống
                         <div class="sb-sidenav-collapse-arrow"><i class="fa fa-ellipsis-h"></i></div>
@@ -35,10 +39,6 @@
                             <a class="nav-link" href="/admins/accounts/diary">Nhật ký người dùng</a>
                         </nav>
                     </div>
-                    <a class="nav-link collapsed" href="/admins/" aria-expanded="false" >
-                        <div class="sb-nav-link-icon"><i class="fa fa-window-restore"></i></div>
-                        Dashboard
-                    </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">

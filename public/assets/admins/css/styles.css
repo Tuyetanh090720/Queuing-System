@@ -10461,6 +10461,9 @@ body {
     box-shadow: 0px 0px 6px #E7E9F2;
     border-radius: 8px;
     text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    color: #FFFFFF;
 }
 
 .input-group-btn .btn-login a {

@@ -7,7 +7,7 @@ use App\Http\Controllers\admins\NumberController;
 use App\Http\Controllers\admins\ReportController;
 use App\Http\Controllers\admins\RightController;
 use App\Http\Controllers\admins\AccountController;
-
+use App\Http\Controllers\Auth\LoginController;
 
 
 
@@ -27,21 +27,6 @@ Route::prefix('admins')->name('admins.')->group(function() {
     Route::get('/', function(){
         return view('/admins/dashboard');
     });
-    Route::get('/login', function(){
-        return view('/admins/login');
-    });
-    Route::get('/forget', function(){
-        return view('/admins/forgetPW');
-    });
-    Route::get('/pwNew', function(){
-        return view('/admins/pwNew');
-    });
-    Route::get('/account', function(){
-        return view('/admins/account');
-    });
-    Route::get('/device', function(){
-        return view('/admins/list');
-    });
 
     Route::prefix('accounts')->name('accounts.')->group(function() {
 
@@ -51,7 +36,7 @@ Route::prefix('admins')->name('admins.')->group(function() {
 
         Route::post('/add', [AccountController::class, 'store'])->name('store');
 
-        Route::get('/detail', [AccountController::class, 'detail'])->name('detail');
+        Route::get('/detail/{id}', [AccountController::class, 'detail'])->name('detail');
 
         Route::get('/edit/{id}', [AccountController::class, 'edit'])->name('edit');
 
@@ -111,12 +96,10 @@ Route::prefix('admins')->name('admins.')->group(function() {
         // Route::post('/edit/{id}', [NumberController::class, 'update'])->name('update');
 
         // Route::get('/delete/{id}', [NumberController::class, 'delete'])->name('delete');
+
     });
 
-    Route::prefix('reports')->name('reports.')->group(function() {
-
-        Route::get('/list', [ReportController::class, 'index'])->name('list');
-    });
+    Route::get('/reports', [NumberController::class, 'reports'])->name('reports');
 
     Route::prefix('rights')->name('rights.')->group(function() {
 
@@ -132,4 +115,18 @@ Route::prefix('admins')->name('admins.')->group(function() {
 
         Route::get('/delete/{id}', [RightController::class, 'delete'])->name('delete');
     });
+});
+
+Auth::routes();
+
+Route::get('/', [LoginController::class, 'showLogin'])->name('showLogin');
+Route::post('/', [LoginController::class, 'login'])->name('login');
+
+
+
+Route::get('/login', function(){
+    return view('/admins/login');
+});
+Route::get('/forget', function(){
+    return view('/admins/forgetPW');
 });

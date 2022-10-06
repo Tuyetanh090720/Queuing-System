@@ -21,6 +21,11 @@ class NumberController extends Controller
 
     }
 
+    public function reports()
+    {
+        return view('admins.reports');
+    }
+
     public function add()
     {
         return view('admins.numbers.add');

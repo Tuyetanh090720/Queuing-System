@@ -4,26 +4,24 @@ namespace App\Http\Controllers\admins;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\report;
 
-
-class ReportController extends Controller
+class CustomerController extends Controller
 {
     public function index()
     {
-        $reports = new report();
+        $devices = new device();
 
         // $ticketTypesList = $devices->getAllTicketTypes();
 
         // return view('admins.ticket_types.lists', compact('ticketTypesList'));
 
-        return view('admins.reports.list');
+        return view('admins.devices.list');
 
     }
 
     public function add()
     {
-        return view('admins.reports.add');
+        return view('admins.devices.add');
     }
 
     // public function store(Request $rq)
@@ -41,7 +39,7 @@ class ReportController extends Controller
 
     public function detail()
     {
-        return view('admins.reports.detail');
+        return view('admins.devices.detail');
     }
 
     public function edit($id)
@@ -51,30 +49,30 @@ class ReportController extends Controller
         // $ticketType = $ticketTypes->getTicketTypes($id);
 
         // return view('admins.ticket_types.edit', compact('ticketType'));
-        return view('admins.reports.edit');
+        return view('admins.devices.edit');
 
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $ticketTypes = new ticketType();
+    public function update(Request $request, $id)
+    {
+        $ticketTypes = new ticketType();
 
-    //     $update_at = ['updated_at' => date('Y-m-d')];
+        $update_at = ['updated_at' => date('Y-m-d')];
 
-    //     // gán dữ liệu gửi lên vào biến data
-    //     $data = array_merge($request->only('ticketTypeName', 'ticketTypeHeight', 'weekdays', 'money', 'created_at'), $update_at);
+        // gán dữ liệu gửi lên vào biến data
+        $data = array_merge($request->only('ticketTypeName', 'ticketTypeHeight', 'weekdays', 'money', 'created_at'), $update_at);
 
-    //     $updateorder = $ticketTypes->updateTicketTypes($data, $id);
+        $updateorder = $ticketTypes->updateTicketTypes($data, $id);
 
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
+        return redirect()->route('admins.ticket_types.lists');
+    }
 
-    // public function delete($id)
-    // {
-    //     $ticketTypes = new ticketType();
+    public function delete($id)
+    {
+        $ticketTypes = new ticketType();
 
-    //     $delete = $ticketTypes->deleteTicketTypes($id);
+        $delete = $ticketTypes->deleteTicketTypes($id);
 
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
+        return redirect()->route('admins.ticket_types.lists');
+    }
 }

@@ -14,7 +14,15 @@ class AccountFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'accountName'  => $this->faker->name(),
+            'accountLogin' => $this->faker->username(),
+            'accountPw' => $this->faker->password(),
+            'accountPhone' => $this->faker->phoneNumber(),
+            'accountEmail' => $this->faker->email(),
+            'accountActiveST' => $this->faker->sentence(3, true),
+            'rightId' => $this->faker->numberBetween($min = 1, $max = 5),
+            'created_at' => $this->faker->date(),
+            'updated_at' => $this->faker->date(),
         ];
     }
 }

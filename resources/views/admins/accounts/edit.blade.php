@@ -5,7 +5,7 @@
     <div class="container-white">
         <div class="account-edit">
             <span class="title-add">Thông tin tài khoản</span>
-            <form action="">
+            <form method="POST" action="/admins/accounts/edit/{{$account->accountId}}">
                 @csrf
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12" style="padding-right:25px">
@@ -25,11 +25,11 @@
                             <div class="dropdown">
                                 <div class="form-group">
                                     <label for="rightName">Vai trò</label>
-                                    <input type="text" id="rightName" placeholder="Tất cả" value="{{$right->rightName}}" required>
+                                    <input type="text" id="rightName" name="rightName" placeholder="Tất cả" value="{{$right->rightName}}" required>
                                     <div class="option rightName">
-                                        <div class="option-item active" onclick="chooseOption('rightName', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('rightName', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('rightName', 2)">Ngưng hoạt động</div>
+                                        @foreach ($rightList as $item)
+                                            <div class="option-item" onclick="chooseOption('rightName', {{$index ++}})">{{$item->rightName}}</div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -54,9 +54,8 @@
                                     <label for="accountActiveST">Trạng thái hoạt động</label>
                                     <input type="text" id="accountActiveST" placeholder="Tất cả" value="{{$account->accountActiveST}}" readonly>
                                     <div class="option accountActiveST">
-                                        <div class="option-item active" onclick="chooseOption('accountActiveST', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('accountActiveST', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('accountActiveST', 2)">Ngưng hoạt động</div>
+                                        <div class="option-item active" onclick="chooseOption('accountActiveST', 0)">Hoạt động</div>
+                                        <div class="option-item" onclick="chooseOption('accountActiveST', 1)">Ngưng hoạt động</div>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +70,7 @@
                     <button class="btn btn-cancel">
                         <a href="">Hủy</a>
                     </button>
-                    <button class="btn btn-login">
+                    <button class="btn btn-login" type="submit">
                         Cập nhật
                     </button>
                 </div>

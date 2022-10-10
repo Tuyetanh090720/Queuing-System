@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class DeviceFactory extends Factory
+class RuleFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,10 +14,7 @@ class DeviceFactory extends Factory
     public function definition()
     {
         return [
-            'deviceName'  => $this->faker->name(),
-            'deviceAddressIp'  => $this->faker->phoneNumber(),
-            'deviceActiveST' => $this->faker->sentence(3, true),
-            'deviceConnectST' => $this->faker->sentence(3, true),
+            'ruleName'  => $this->faker->name(),
             'created_at' => $this->faker->date(),
             'updated_at' => $this->faker->date(),
         ];

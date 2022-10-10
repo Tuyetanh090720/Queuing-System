@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Database\Eloquent\Model;
-
 class AccountController extends Controller
 {
+    const _PER_PAGE = 3;
     // public function showLogin(){
     //     return view('auth.login');
     // }
@@ -28,15 +28,24 @@ class AccountController extends Controller
     //         dd($rq->accountLogin);
     //     }
     // }
-
     public function index()
     {
         $accounts = new account();
-
-        $accountsList = $accounts->getAllAccounts();
+        $accountsList = $accounts->getAllAccounts(self::_PER_PAGE, '', '');
 
         return view('admins.accounts.list', compact('accountsList'));
+    }
 
+    public function getMore(Request $rq)
+    {
+        $accounts = new account();
+        $keywords = $rq->keywords;
+        $accountActiveST = $rq->accountActiveST;
+
+        if($rq->ajax()) {
+            $accountsList = $accounts->getAllAccounts(self::_PER_PAGE, $keywords, $accountActiveST);
+            return view('admins.accounts.table', compact('accountsList'))->render();
+        }
     }
 
     // public function diary()
@@ -46,7 +55,11 @@ class AccountController extends Controller
 
     public function add()
     {
-        return view('admins.accounts.add');
+        $rights = new right();
+        $rightList = $rights->getAllRights();
+        $index = 0;
+
+        return view('admins.accounts.add', compact('rightList', 'index'));
     }
 
     public function store(Request $rq)
@@ -62,27 +75,14 @@ class AccountController extends Controller
             }
         };
 
-        $accounts->accountName = $rq->accountName;
 
-        $accounts->accountPhone = $rq->accountPhone;
+        $arrdate = ['created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d')];
 
-        $accounts->accountEmail = $rq->accountEmail;
+        $data = array_merge($rq->only('accountName','accountLogin', 'accountPw', 'accountPhone', 'accountEmail', 'accountActiveST'), ['rightId' => $rightId], $arrdate);
 
-        $accounts->rightId = $rightId;
+        $insert = $accounts->insertAccount($data);
 
-        $accounts->accountLogin = $rq->accountLogin;
-
-        $accounts->accountPw = bcrypt($rq->accountPw);
-
-        $accounts->updated_at = date('Y-m-d');
-
-        $accounts->created_at = date('Y-m-d');
-
-        $accounts->accountActiveST = $rq->accountActiveST;
-
-        $accounts->save();
-
-        return redirect()->route('login');
+        return redirect()->route('admins.accounts.list');
     }
 
     public function detail($id)
@@ -90,10 +90,7 @@ class AccountController extends Controller
         $accounts = new account();
         $account = $accounts->getAccountDetail($id);
 
-        $rights = new right();
-        $right = $rights->getRightID($account->rightId);
-
-        return view('admins.accounts.detail', compact('account', 'right'));
+        return view('admins.accounts.detail', compact('account'));
     }
 
     public function edit($id)
@@ -103,32 +100,32 @@ class AccountController extends Controller
 
         $rights = new right();
         $right = $rights->getRightID($account->rightId);
+        $rightList = $rights->getAllRights();
+        $index = 0;
 
-        return view('admins.accounts.edit', compact('account', 'right'));
+        return view('admins.accounts.edit', compact('account', 'right', 'rightList', 'index'));
 
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $ticketTypes = new ticketType();
+    public function update(Request $rq, $id)
+    {
+        $accounts = new account();
 
-    //     $update_at = ['updated_at' => date('Y-m-d')];
+        $rights = new right();
+        $rightsList = $rights->getAllRights();
 
-    //     // gán dữ liệu gửi lên vào biến data
-    //     $data = array_merge($request->only('ticketTypeName', 'ticketTypeHeight', 'weekdays', 'money', 'created_at'), $update_at);
+        foreach($rightsList as $item){
+            if($item->rightName == $rq->rightName){
+                $rightId = $item->rightId;
+            }
+        };
 
-    //     $updateorder = $ticketTypes->updateTicketTypes($data, $id);
+        $arrdate = ['created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d')];
 
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
+        $data = array_merge($rq->only('accountName','accountLogin', 'accountPw', 'accountPhone', 'accountEmail', 'accountActiveST'), ['rightId' => $rightId], $arrdate);
 
-    // public function delete($id)
-    // {
-    //     $ticketTypes = new ticketType();
+        $update = $accounts->updateAccount($data, $id);
 
-    //     $delete = $ticketTypes->deleteTicketTypes($id);
-
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
-
+        return redirect()->route('admins.accounts.list');
+    }
 }

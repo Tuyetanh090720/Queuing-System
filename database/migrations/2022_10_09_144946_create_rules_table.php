@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDevicesTable extends Migration
+class CreateRulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateDevicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('devices', function (Blueprint $table) {
-            $table->increments('deviceId');
-            $table->string('deviceName');
-            $table->string('deviceAddressIp');
-            $table->string('deviceActiveST');
-            $table->string('deviceConnectST');
+        Schema::create('rules', function (Blueprint $table) {
+            $table->increments('ruleId');
+            $table->string('ruleName');
             $table->date('created_at');
             $table->date('updated_at');
         });
@@ -31,6 +28,6 @@ class CreateDevicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('devices');
+        Schema::dropIfExists('rules');
     }
 }

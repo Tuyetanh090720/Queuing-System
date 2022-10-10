@@ -16,6 +16,8 @@ for (let d = 0; d < dropdown.length; d++) {
     })
 }
 
+
+
 function chooseOption(anything, i) {
     let strClass = '.' + anything + ' .option-item'
 

@@ -27,9 +27,9 @@
                                     <label for="rightName">Vai trò</label>
                                     <input type="text" id="rightName" placeholder="Tất cả" name="rightName" value="{{ old('rightName') }}" autocomplete="rightName"  readonly>
                                     <div class="option rightName">
-                                        <div class="option-item active" onclick="chooseOption('rightName', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('rightName', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('rightName', 2)">Ngưng hoạt động</div>
+                                        @foreach ($rightList as $item)
+                                            <div class="option-item" onclick="chooseOption('rightName', {{$index ++}})">{{$item->rightName}}</div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -54,9 +54,8 @@
                                     <label for="accountActiveST">Trạng thái hoạt động</label>
                                     <input type="text" id="accountActiveST" placeholder="Tất cả" name="accountActiveST" value="{{ old('accountActiveST') }}" readonly>
                                     <div class="option accountActiveST">
-                                        <div class="option-item active" onclick="chooseOption('accountActiveST', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('accountActiveST', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('accountActiveST', 2)">Ngưng hoạt động</div>
+                                        <div class="option-item active" onclick="chooseOption('accountActiveST', 0)">Hoạt động</div>
+                                        <div class="option-item" onclick="chooseOption('accountActiveST', 1)">Ngưng hoạt động</div>
                                     </div>
                                 </div>
                             </div>

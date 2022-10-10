@@ -11,22 +11,34 @@ class account extends Model
     use HasFactory;
     protected $table = 'accounts';
 
-    public function getAllAccounts(){
-        return DB::table($this->table)->get();
+    public function insertAccount($data){
+        return DB::table($this->table)->insert($data);
     }
 
-    public function getAccountDetail($accountId){
-        $event = DB::table($this->table)->where('accountId', $accountId)->first();
+    public function getAllAccounts($perPage, $keywords, $accountActiveST){
+        $accounts = DB::table($this->table)->join('rights', 'accounts.rightId', '=', 'rights.rightId');
+        // $accounts = DB::table($this->table);
 
-        return $event;
+        if($keywords && !empty($keywords)) {
+            $accounts = $accounts->where('accounts.accountLogin', 'like', "%{$keywords}%")
+                                ->orwhere('rights.rightName', 'like', "%{$keywords}%");
+        }
+
+        if($accountActiveST && !empty($accountActiveST)) {
+            $accounts = $accounts->where('accounts.accountActiveST', $accountActiveST);
+        }
+
+        return $accounts->paginate($perPage);
     }
 
-    public function updateEvent($data, $id){
-        return  DB::table($this->table)->where('eventId', $id)->update($data);
+    public function getAccountDetail($id){
+        $accounts = DB::table($this->table)->join('rights', 'accounts.rightId', '=', 'rights.rightId');
+        $accounts = $accounts->where('accountId', $id)->first();
+
+        return $accounts;
     }
 
-    public function deleteEvent($id){
-        return  DB::table($this->table)->where('eventId', $id)->delete();
+    public function updateAccount($data, $id){
+        return  DB::table($this->table)->where('accountId', $id)->update($data);
     }
-
 }

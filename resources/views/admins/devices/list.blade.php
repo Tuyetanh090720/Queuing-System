@@ -48,138 +48,31 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Mã thiết bị</th>
-                            <th>Tên thiết bị</th>
-                            <th>Địa chỉ IP</th>
-                            <th>Trạng thái hoạt động</th>
-                            <th>Trạng thái kết nối</th>
-                            <th>Dịch vụ sử dụng</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #34CD26"></i> Hoạt động</td>
-                            <td><i class="fa fa-circle" style="color: #34CD26"></i> Kết nối</td>
-                            <td>
-                                <div style="width: 200px;">
-                                    <p class="text-overflow">Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt,
-                                        Khám tai mũi họng, Khám hô hấp, Khám tổng quát</p>
-                                    <a href="">Xem thêm</a>
-                                    <div class="full-content">
-                                        <span>Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt,
-                                                Khám tai mũi họng, Khám hô hấp, Khám tổng quát</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="/admins/devices/detail/1">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="/admins/devices/edit/1">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #EC3740"></i> Ngưng hoạt động</td>
-                            <td><i class="fa fa-circle" style="color: #EC3740"></i> Mất kết nối</td>
-                            <td>
-                                <div style="width: 200px;">
-                                    <p class="text-overflow">Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt,
-                                        Khám tai mũi họng, Khám hô hấp, Khám tổng quát</p>
-                                    <a href="">Xem thêm</a>
-                                    <div class="full-content">
-                                        <span>Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt,
-                                                Khám tai mũi họng, Khám hô hấp, Khám tổng quát</span>
-                                    </div>
-                                </div>
-                            </td>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #34CD26"></i> Hoạt động</td>
-                            <td><i class="fa fa-circle" style="color: #34CD26"></i> Kết nối</td>
-                            <td>
-                                <div style="width: 200px;">
-                                    <p class="text-overflow">Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt,
-                                        Khám tai mũi họng, Khám hô hấp, Khám tổng quát</p>
-                                    <a href="">Xem thêm</a>
-                                    <div class="full-content">
-                                        <span>Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt,
-                                                Khám tai mũi họng, Khám hô hấp, Khám tổng quát</span>
-                                    </div>
-                                </div>
-                            </td>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #EC3740"></i> Ngưng hoạt động</td>
-                            <td><i class="fa fa-circle" style="color: #EC3740"></i> Mất kết nối</td>
-                            <td>
-                                <div style="width: 200px;">
-                                    <p class="text-overflow">Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt,
-                                        Khám tai mũi họng, Khám hô hấp, Khám tổng quát</p>
-                                    <a href="">Xem thêm</a>
-                                    <div class="full-content">
-                                        <span>Khám tim mạch, Khám Sản - Phụ khoa, Khám răng hàm mặt,
-                                                Khám tai mũi họng, Khám hô hấp, Khám tổng quát</span>
-                                    </div>
-                                </div>
-                            </td>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="table-responsive" id="pagination-ajax">
+                @include('admins/devices/table')
+                <script>
+                    $(document).ready(function() {
+                        $(document).on('click', '.pagination a', function(event) {
+                            event.preventDefault();
+                            var page = $(this).attr('href').split('page=')[1];
+                            getMore(page);
+                        });
+                    });
+
+                    function getMore(page) {
+                        var search = $('#keywords').val();
+
+                        var accountActiveST = $('#accountActiveST').val();
+
+                        $.ajax({
+                            type: "GET",
+                            url: "{{ route('admins.device_types.getMore') }}"+ "?page=" + page,
+                            success:function(data) {
+                            $('#pagination-ajax').html(data);
+                            }
+                        });
+                    }
+                </script>
             </div>
         </div>
         <div class="btn-control">

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admins\DeviceTypeController;
 use App\Http\Controllers\admins\DeviceController;
 use App\Http\Controllers\admins\ServiceController;
 use App\Http\Controllers\admins\NumberController;
@@ -32,6 +33,8 @@ Route::prefix('admins')->name('admins.')->group(function() {
 
         Route::get('/list', [AccountController::class, 'index'])->name('list');
 
+        Route::get('/getMore', [AccountController::class, 'getMore'])->name('getMore');
+
         Route::get('/add', [AccountController::class, 'add'])->name('add');
 
         Route::post('/add', [AccountController::class, 'store'])->name('store');
@@ -47,19 +50,36 @@ Route::prefix('admins')->name('admins.')->group(function() {
         Route::get('/diary', [AccountController::class, 'diary'])->name('diary');
     });
 
+    Route::prefix('device_types')->name('device_types.')->group(function() {
+
+        Route::get('/list', [DeviceTypeController::class, 'index'])->name('list');
+
+        Route::get('/getMore', [DeviceTypeController::class, 'getMore'])->name('getMore');
+
+        Route::get('/add', [DeviceTypeController::class, 'add'])->name('add');
+
+        Route::post('/add', [DeviceTypeController::class, 'store'])->name('store');
+
+        Route::get('/edit/{id}', [DeviceTypeController::class, 'edit'])->name('edit');
+
+        Route::post('/edit/{id}', [DeviceTypeController::class, 'update'])->name('update');
+
+        Route::get('/delete/{id}', [DeviceTypeController::class, 'delete'])->name('delete');
+    });
+
     Route::prefix('devices')->name('devices.')->group(function() {
 
         Route::get('/list', [DeviceController::class, 'index'])->name('list');
 
         Route::get('/add', [DeviceController::class, 'add'])->name('add');
 
-        // Route::post('/add', [DeviceController::class, 'store'])->name('store');
+        Route::post('/add', [DeviceController::class, 'store'])->name('store');
 
         Route::get('/detail/{id}', [DeviceController::class, 'detail'])->name('detail');
 
         Route::get('/edit/{id}', [DeviceController::class, 'edit'])->name('edit');
 
-        // Route::post('/edit/{id}', [DeviceController::class, 'update'])->name('update');
+        Route::post('/edit/{id}', [DeviceController::class, 'update'])->name('update');
 
         // Route::get('/delete/{id}', [DeviceController::class, 'delete'])->name('delete');
     });

@@ -19,5 +19,10 @@ class DatabaseSeeder extends Seeder
         $this->call(NumberSeeder::class);
         $this->call(RightSeeder::class);
         $this->call(ServiceSeeder::class);
+        $this->call(DeviceTypeSeeder::class);
+        $this->call(RuleSeeder::class);
+        $this->call(DeviceDetailSeeder::class);
+
+
     }
 }

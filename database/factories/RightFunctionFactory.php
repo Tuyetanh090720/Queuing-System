@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class ServiceFactory extends Factory
+class RightFunctionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,11 +14,8 @@ class ServiceFactory extends Factory
     public function definition()
     {
         return [
-            'serviceCode' => $this->faker->word(),
-            'serviceName'  => $this->faker->name(),
-            'serviceDescription' => $this->faker->sentence(5, true),
-            'serviceActiveST' => $this->faker->sentence(3, true),
-            'serviceRuleNumber' => $this->faker->sentence(3, true),
+            'rightFunctionName'  => $this->faker->name(),
+            'rightFunctionType' => $this->faker->numberBetween($min = 1, $max = 3),
             'created_at' => $this->faker->date(),
             'updated_at' => $this->faker->date(),
         ];

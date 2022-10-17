@@ -5,44 +5,62 @@
     <div class="container-white">
         <div class="device-detail">
             <span class="title-add">Thông tin thiết bị</span>
-            <form action="" onkeydown="return event.key != 'Enter';">
+            <form method="POST" action="/admins/devices/edit/{{$device->deviceId}}" onkeydown="return event.key != 'Enter';">
                 @csrf
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12" style="padding-right:25px">
                         <div class="form-group">
                             <label for="deviceId">Mã thiết bị</label>
-                            <input type="text" class="form-control" name="deviceId" required>
+                            <input type="text" class="form-control" name="deviceId" value="{{$device->deviceId}}" required>
                         </div>
                         <div class="form-group">
                             <label for="deviceName">Tên thiết bị</label>
-                            <input type="text" class="form-control" name="deviceId" required>
+                            <input type="text" class="form-control" name="deviceName" value="{{$device->deviceName}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="addressIp">Địa chỉ IP</label>
-                            <input type="text" class="form-control" name="addressIp" required>
+                            <label for="deviceAddressIp">Địa chỉ IP</label>
+                            <input type="text" class="form-control" name="deviceAddressIp" value="{{$device->deviceAddressIp}}" required>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="select-input">
                             <div class="dropdown">
                                 <div class="form-group">
-                                    <label for="deviceType">Trạng thái hoạt động</label>
-                                    <input type="text" class="form-control" id="deviceType" placeholder="Tất cả" readonly>
-                                    <div class="option deviceType">
-                                        <div class="option-item active" onclick="chooseOption('deviceType', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('deviceType', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('deviceType', 2)">Ngưng hoạt động</div>
+                                    <label for="deviceTypeName">Loại thiết bị</label>
+                                    <input type="text" id="deviceTypeName" name="deviceTypeName" placeholder="Tất cả" value="{{$device->deviceTypeName}}" readonly>
+                                    <div class="option deviceTypeName">
+                                        @foreach ($deviceTypeList as $item)
+                                            <div class="option-item" onclick="chooseOption('deviceTypeName', {{$i++}})">{{$item->deviceTypeName}}</div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="loginname">Tên đăng nhập</label>
-                            <input type="text" class="form-control" name="loginname" required>
+                        <div class="select-input">
+                            <div class="dropdown">
+                                <div class="form-group">
+                                    <label for="deviceActiveST">Trạng thái hoạt động</label>
+                                    <input type="text" id="deviceActiveST" name="deviceActiveST" placeholder="Tất cả" value="{{$device->deviceActiveST}}" readonly>
+                                    <div class="option deviceActiveST">
+                                        <div class="option-item active" onclick="chooseOption('deviceActiveST', 0)">Tất cả</div>
+                                        <div class="option-item" onclick="chooseOption('deviceActiveST', 1)">Hoạt động</div>
+                                        <div class="option-item" onclick="chooseOption('deviceActiveST', 2)">Ngưng hoạt động</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Mật khẩu</label>
-                            <input type="text" class="form-control" name="password" required>
+                        <div class="select-input">
+                            <div class="dropdown">
+                                <div class="form-group">
+                                    <label for="deviceConnectST">Trạng thái kết nối</label>
+                                    <input type="text" id="deviceConnectST" name="deviceConnectST" placeholder="Tất cả" value="{{$device->deviceConnectST}}" readonly>
+                                    <div class="option deviceConnectST">
+                                        <div class="option-item active" onclick="chooseOption('deviceConnectST', 0)">Tất cả</div>
+                                        <div class="option-item" onclick="chooseOption('deviceConnectST', 1)">Kết nối</div>
+                                        <div class="option-item" onclick="chooseOption('deviceConnectST', 2)">Ngưng kết nối</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -53,13 +71,15 @@
                             <div class="dropdown">
                                 <div class="form-group">
                                     <ul id="ul-input-tag">
-                                        <li>Khám mắt<i class="fa fa-xmark"></i></li>
+                                        @foreach ($serviceNameList as $item)
+                                            <li>{{$item}}<i class="fa fa-xmark" onclick="remove(this,'{{$item}}')"></i></li>
+                                        @endforeach
                                     </ul>
-                                    <input type="text" class="form-control" name="service" id="input-tag" required>
-                                    <div class="option service">
-                                        <div class="option-item active" onclick="addTag('service', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="addTag('service', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="addTag('service', 2)">Ngưng hoạt động</div>
+                                    <input type="hidden" class="form-control" name="serviceName" id="input-tag" value="{{$serviceNames}}">
+                                    <div class="option serviceName">
+                                        @foreach ($servicesList as $item)
+                                            <div class="option-item" onclick="addTag('serviceName', {{$j++}})">{{$item->serviceName}}</div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -72,10 +92,10 @@
                 </div>
                 <div class="input-group-btn">
                     <button class="btn btn-cancel">
-                        <a href="">Hủy</a>
+                        <a href="/admins/devices/list">Hủy</a>
                     </button>
-                    <button class="btn btn-login">
-                        <a href="">Thêm thiết bị</a>
+                    <button class="btn btn-login" type="submit">
+                        Cập nhật thiết bị
                     </button>
                 </div>
             </form>

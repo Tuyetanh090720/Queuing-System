@@ -1,4 +1,4 @@
-<table class="table table-bordered">
+<table class="table table-bordered" width="100%" cellspacing="0">
     <thead>
         <tr>
             <th>Mã thiết bị</th>
@@ -17,17 +17,18 @@
                 <tr>
                     <td>{{$item->deviceId}}</td>
                     <td>{{$item->deviceName}}</td>
+                    <td>{{$item->deviceAddressIp}}</td>
                     @if ($item->deviceActiveST == "Hoạt động")
                         <td><i class="fa fa-circle" style="color: #34CD26"></i> {{$item->deviceActiveST}}</td>
                     @else
                         <td><i class="fa fa-circle" style="color: #EC3740"></i> {{$item->deviceActiveST}}</td>
                     @endif
-                    @if ($item->deviceConnectST == "Hoạt động")
+                    @if ($item->deviceConnectST == "Kết nối")
                         <td><i class="fa fa-circle" style="color: #34CD26"></i> {{$item->deviceConnectST}}</td>
                     @else
                         <td><i class="fa fa-circle" style="color: #EC3740"></i> {{$item->deviceConnectST}}</td>
                     @endif
-                    <td>{{$item->serviceName}}</td>
+                    <td>{!!$deviceDetailList[$j++]!!}</td>
                     <td style="text-align: center;">
                         <a href="/admins/devices/detail/{{$item->deviceId}}">Chi tiết
                             <ion-icon name="create-outline"></ion-icon>

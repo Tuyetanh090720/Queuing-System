@@ -16,6 +16,7 @@ class DeviceFactory extends Factory
         return [
             'deviceName'  => $this->faker->name(),
             'deviceAddressIp'  => $this->faker->phoneNumber(),
+            'deviceTypeId' => $this->faker->numberBetween($min = 1, $max = 5),
             'deviceActiveST' => $this->faker->sentence(3, true),
             'deviceConnectST' => $this->faker->sentence(3, true),
             'created_at' => $this->faker->date(),

@@ -9,16 +9,64 @@ use App\Models\service;
 
 class ServiceController extends Controller
 {
+    const _PER_PAGE = 3;
+
     public function index()
     {
         $services = new service();
 
-        // $ticketTypesList = $devices->getAllTicketTypes();
+        $servicesList = $services->getAllServices(self::_PER_PAGE, '', '');
 
-        // return view('admins.ticket_types.lists', compact('ticketTypesList'));
+        return view('admins.services.list', compact('servicesList'));
 
-        return view('admins.services.list');
+    }
 
+    public function getMore(Request $rq)
+    {
+        $services = new service();
+
+        $keywords = $rq->keywords;
+
+        $serviceActiveST = $rq->serviceActiveST;
+
+        if($rq->ajax()) {
+            $servicesList = $services->getAllServices(self::_PER_PAGE, $keywords, $serviceActiveST);
+
+            return view('admins.services.table', compact('servicesList'))->render();
+        }
+    }
+
+    public function detail($id)
+    {
+        $services = new service();
+
+        $service =  $services->getFirstService($id);
+
+        $serviceDetail = $services->getServiceDetail($id, self::_PER_PAGE, '', '');
+
+        $serviceRuleNumber = explode(', ',$service->serviceRuleNumber);
+
+        return view('admins.services.detail', compact('service', 'serviceRuleNumber', 'serviceDetail'));
+    }
+
+    public function getMoreDetail(Request $rq, $id)
+    {
+        $services = new service();
+
+        $keywords = $rq->keywords;
+
+        $numberST = $rq->numberST;
+
+        $service =  $services->getFirstService($id);
+
+        if($rq->ajax()) {
+
+            $serviceDetail = $services->getServiceDetail($id, self::_PER_PAGE, $keywords, $numberST);
+
+            $serviceRuleNumber = explode(', ',$service->serviceRuleNumber);
+
+            return view('admins.services.table-detail', compact('service', 'serviceRuleNumber', 'serviceDetail'))->render();
+        }
     }
 
     public function add()
@@ -26,55 +74,43 @@ class ServiceController extends Controller
         return view('admins.services.add');
     }
 
-    // public function store(Request $rq)
-    // {
-    //     $arrdate = ['updated_at' => date('Y-m-d'), 'created_at' => date('Y-m-d')];
-
-    //     $data = array_merge($rq->only('ticketTypeName', 'ticketTypeHeight', 'weekdays', 'money'), $arrdate);
-
-    //     $ticketTypes = new ticketType();
-
-    //     $ticketTypesList = $ticketTypes->addTicketTypes($data);
-
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
-
-    public function detail()
+    public function store(Request $rq)
     {
-        return view('admins.services.detail');
+        $services = new service();
+
+        $arrdate = ['updated_at' => date('Y-m-d'), 'created_at' => date('Y-m-d')];
+
+        $serviceRuleNumber = implode($rq->serviceRuleNumber, ', ');
+
+        $data = array_merge($rq->only('serviceCode', 'serviceName', 'serviceDescription', 'serviceActiveST'), ['serviceRuleNumber'=>$serviceRuleNumber], $arrdate);
+
+        $services->insertService($data);
+
+        return redirect()->route('admins.services.list');
     }
 
     public function edit($id)
     {
-        // $ticketTypes = new ticketType();
+        $services = new service();
 
-        // $ticketType = $ticketTypes->getTicketTypes($id);
+        $service =  $services->getFirstService($id);
 
-        // return view('admins.ticket_types.edit', compact('ticketType'));
-        return view('admins.services.edit');
+        $serviceRuleNumber = explode(', ',$service->serviceRuleNumber);
+
+        return view('admins.services.edit',  compact('service', 'serviceRuleNumber'));
 
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $ticketTypes = new ticketType();
+    public function update(Request $rq, $id)
+    {
+        $services = new service();
 
-    //     $update_at = ['updated_at' => date('Y-m-d')];
+        $serviceRuleNumber = implode($rq->serviceRuleNumber, ', ');
 
-    //     // gán dữ liệu gửi lên vào biến data
-    //     $data = array_merge($request->only('ticketTypeName', 'ticketTypeHeight', 'weekdays', 'money', 'created_at'), $update_at);
+        $data = array_merge($rq->only('serviceCode', 'serviceName', 'serviceDescription', 'serviceActiveST', 'created_at'), ['serviceRuleNumber'=>$serviceRuleNumber], ['updated_at' => date('Y-m-d')]);
 
-    //     $updateorder = $ticketTypes->updateTicketTypes($data, $id);
+        $services->updateService($data, $id);
 
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
-
-    // public function delete($id)
-    // {
-    //     $ticketTypes = new ticketType();
-
-    //     $delete = $ticketTypes->deleteTicketTypes($id);
-
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
+        return redirect()->route('admins.services.list');
+    }
 }

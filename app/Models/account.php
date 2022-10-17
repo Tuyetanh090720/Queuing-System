@@ -16,8 +16,7 @@ class account extends Model
     }
 
     public function getAllAccounts($perPage, $keywords, $accountActiveST){
-        $accounts = DB::table($this->table)->join('rights', 'accounts.rightId', '=', 'rights.rightId');
-        // $accounts = DB::table($this->table);
+        $accounts = DB::table($this->table)->join('rights', 'accounts.rightId', 'rights.rightId');
 
         if($keywords && !empty($keywords)) {
             $accounts = $accounts->where('accounts.accountLogin', 'like', "%{$keywords}%")
@@ -25,7 +24,12 @@ class account extends Model
         }
 
         if($accountActiveST && !empty($accountActiveST)) {
-            $accounts = $accounts->where('accounts.accountActiveST', $accountActiveST);
+            if($accountActiveST == "Tất cả"){
+                $devices = $devices;
+            }
+            else{
+                $devices = $devices->where('accounts.accountActiveST', $accountActiveST);
+            }
         }
 
         return $accounts->paginate($perPage);

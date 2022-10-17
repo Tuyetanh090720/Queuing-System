@@ -10,12 +10,13 @@
                         <div class="select">
                             <div class="dropdown">
                                 <div class="dropdown-block form-group">
-                                    <label for="service-name">Tên dịch vụ</label>
-                                    <input type="text" id="active-status" placeholder="Tất cả" readonly>
-                                    <div class="option active-status">
-                                        <div class="option-item active" onclick="chooseOption('active-status', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('active-status', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('active-status', 2)">Ngưng hoạt động</div>
+                                    <label for="serviceName">Tên dịch vụ</label>
+                                    <input type="text" id="serviceName" placeholder="Tất cả" readonly>
+                                    <div class="option serviceName">
+                                        <div class="option-item active" onclick="chooseOption('serviceName', 0)">Tất cả</div>
+                                        @foreach ($servicesList as $item)
+                                            <div class="option-item" onclick="chooseOption('serviceName', {{$i++}})">{{$item->serviceName}}</div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
@@ -25,12 +26,13 @@
                         <div class="select">
                             <div class="dropdown">
                                 <div class="dropdown-block form-group">
-                                    <label for="service-name">Tên dịch vụ</label>
-                                    <input type="text" id="active-status" placeholder="Tất cả" readonly>
-                                    <div class="option active-status">
-                                        <div class="option-item active" onclick="chooseOption('active-status', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('active-status', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('active-status', 2)">Ngưng hoạt động</div>
+                                    <label for="numberST">Tình trạng<label>
+                                    <input type="text" id="numberST" placeholder="Tất cả" readonly>
+                                    <div class="option numberST">
+                                        <div class="option-item active" onclick="chooseOption('numberST', 0)">Tất cả</div>
+                                        <div class="option-item" onclick="chooseOption('numberST', 1)">Đã hoàn thành</div>
+                                        <div class="option-item" onclick="chooseOption('numberST', 2)">Đang thực hiện</div>
+                                        <div class="option-item" onclick="chooseOption('numberST', 3)">Vắng</div>
                                     </div>
                                 </div>
                             </div>
@@ -40,12 +42,12 @@
                         <div class="select">
                             <div class="dropdown">
                                 <div class="dropdown-block form-group">
-                                    <label for="service-name">Tên dịch vụ</label>
-                                    <input type="text" id="active-status" placeholder="Tất cả" readonly>
-                                    <div class="option active-status">
-                                        <div class="option-item active" onclick="chooseOption('active-status', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('active-status', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('active-status', 2)">Ngưng hoạt động</div>
+                                    <label for="numberSupply">Nguồn cấp</label>
+                                    <input type="text" id="numberSupply" placeholder="Tất cả" readonly>
+                                    <div class="option numberSupply">
+                                        <div class="option-item active" onclick="chooseOption('numberSupply', 0)">Tất cả</div>
+                                        <div class="option-item" onclick="chooseOption('numberSupply', 1)">Hệ thống</div>
+                                        <div class="option-item" onclick="chooseOption('numberSupply', 2)">Kiosk</div>
                                     </div>
                                 </div>
                             </div>
@@ -55,9 +57,9 @@
                         <div class="form-group">
                             <label>Chọn thời gian</label>
                             <div class="filter-time">
-                                <input type="text" name="start-at"  class="form-control"  placeholder="10/10/1995" required>
+                                <input type="text" name="created_at" id="created_at" class="form-control"  placeholder="10/10/1995" required>
                                 <i class="fa fa-caret-right"></i>
-                                <input type="text" name="start-at"  class="form-control"  placeholder="10/10/1995" required>
+                                <input type="text" name="numberExpiry" id="numberExpiry" class="form-control"  placeholder="10/10/1995" required>
                             </div>
                         </div>
                     </div>
@@ -65,89 +67,84 @@
                         <div class="form-group">
                             <label>Từ khóa</label>
                             <div class="search">
-                                <input type="text" required="required" name="Title"  class="form-control" id="txtTitle" placeholder="Tiêu đề">
+                                <input type="text" required="required" class="form-control" id="keywords" value="{{request()->keywords}}" placeholder="Từ khóa">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Tên khách hàng</th>
-                            <th>Tên dịch vụ</th>
-                            <th>Thời gian cấp</th>
-                            <th>Hạn sử dụng</th>
-                            <th>Trạng thái</th>
-                            <th>Nguồn cấp</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #4277FF"></i> Đang chờ</td>
-                            <td>192.168.1.10</td>
-                            <td style="text-align: center;">
-                                <a href="/admins/numbers/detail/1">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #EC3740"></i> Ngưng hoạt động</td>
-                            </td>
-                            <td>192.168.1.10</td>
-                            <td style="text-align: center;">
-                                <a href="">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #7E7D88"></i> Đã sử dụng</td>
-                            </td>
-                            <td>192.168.1.10</td>
-                            <td style="text-align: center;">
-                                <a href="">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #EC3740"></i> Bỏ qua</td>
-                            </td>
-                            <td>192.168.1.10</td>
-                            <td style="text-align: center;">
-                                <a href="">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="table-responsive" id="pagination-ajax">
+                @include('admins/numbers/table')
+                <script>
+                    $(document).ready(function() {
+                        $(document).on('click', '.pagination a', function(event) {
+                            event.preventDefault();
+                            var page = $(this).attr('href').split('page=')[1];
+                            getMore(page);
+                        });
+
+                        $('#keywords').on('keyup', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
+
+                        $('.serviceName .option-item').on('click', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
+
+                        $('.numberST .option-item').on('click', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
+
+                        $('.numberSupply .option-item').on('click', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
+
+                        $('#created_at').on('keyup', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
+
+                        $('#numberExpiry').on('keyup', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
+                    });
+
+                    function getMore(page) {
+                        var search = $('#keywords').val();
+
+                        var serviceName = $('#serviceName').val();
+
+                        var numberST = $('#numberST').val();
+
+                        var numberSupply = $('#numberSupply').val();
+
+                        var created_at = $('#created_at').val();
+
+                        var numberExpiry = $('#numberExpiry').val();
+
+                        $.ajax({
+                            type: "GET",
+                            data: {
+                                'keywords':search,
+                                'serviceName': serviceName,
+                                'numberST': numberST,
+                                'numberSupply': numberSupply,
+                                'created_at': created_at,
+                                'numberExpiry': numberExpiry,
+                            },
+                            url: "{{ route('admins.numbers.getMore') }}"+ "?page=" + page,
+                            success:function(data) {
+                                $('#pagination-ajax').html(data);
+                            }
+                        });
+                    }
+                </script>
             </div>
         </div>
         <div class="btn-control">

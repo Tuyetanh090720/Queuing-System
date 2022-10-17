@@ -26,6 +26,19 @@
                         <div class="select-input">
                             <div class="dropdown">
                                 <div class="form-group">
+                                    <label for="deviceTypeName">Loại thiết bị</label>
+                                    <input type="text" id="deviceTypeName" name="deviceTypeName" placeholder="Tất cả" readonly>
+                                    <div class="option deviceTypeName">
+                                        @foreach ($deviceTypeList as $item)
+                                            <div class="option-item" onclick="chooseOption('deviceTypeName', {{$i++}})">{{$item->deviceTypeName}}</div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="select-input">
+                            <div class="dropdown">
+                                <div class="form-group">
                                     <label for="deviceActiveST">Trạng thái hoạt động</label>
                                     <input type="text" id="deviceActiveST" name="deviceActiveST" placeholder="Tất cả" readonly>
                                     <div class="option deviceActiveST">
@@ -62,7 +75,7 @@
                                     <input type="hidden" class="form-control" name="serviceName" id="input-tag">
                                     <div class="option serviceName">
                                         @foreach ($servicesList as $item)
-                                            <div class="option-item" onclick="addTag('serviceName', {{$index++}})">{{$item->serviceName}}</div>
+                                            <div class="option-item" onclick="addTag('serviceName', {{$j++}})">{{$item->serviceName}}</div>
                                         @endforeach
                                     </div>
                                 </div>

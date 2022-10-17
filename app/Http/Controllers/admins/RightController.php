@@ -5,76 +5,208 @@ namespace App\Http\Controllers\admins;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\right;
+use App\Models\rightFunction;
+use App\Models\rightDetail;
 
 
 class RightController extends Controller
 {
+    const _PER_PAGE = 3;
     public function index()
     {
         $rights = new right();
 
-        // $ticketTypesList = $devices->getAllTicketTypes();
+        $rightsList = $rights->getAllRights(self::_PER_PAGE, '');
 
-        // return view('admins.ticket_types.lists', compact('ticketTypesList'));
+        foreach($rightsList as $item){
+            $countRight = $rights->countRight($item->rightId);
+            $countRightList[] = $countRight;
+        }
+        $i = 0;
 
-        return view('admins.rights.list');
+        return view('admins.rights.list', compact('rightsList', 'countRightList', 'i'));
 
+    }
+
+    public function getMore(Request $rq)
+    {
+        $rights = new right();
+        $keywords = $rq->keywords;
+
+        if($rq->ajax()) {
+            $rightsList = $rights->getAllRights(self::_PER_PAGE, $keywords);
+
+            foreach($rightsList as $item){
+                $countRight = $rights->countRight($item->rightId);
+                $countRightList[] = $countRight;
+            }
+            $i = 0;
+
+            return view('admins.rights.table', compact('rightsList', 'countRightList', 'i'))->render();
+        }
     }
 
     public function add()
     {
-        return view('admins.rights.add');
+        $rights = new right();
+        $rightFunctions = new rightFunction();
+
+        $rightFunctionList = $rightFunctions->getAllRightFunctions();
+
+        $rightAndFunction1 = [];
+        $rightAndFunction2 = [];
+        $rightAndFunction3 = [];
+
+        for($i = 0; $i < count($rightFunctionList); $i++){
+            if($rightFunctionList[$i]->rightFunctionType == 1){
+                $rightAndFunction1[] = $rightFunctionList[$i]->rightFunctionName;
+            }
+            if($rightFunctionList[$i]->rightFunctionType == 2){
+                $rightAndFunction2[] = $rightFunctionList[$i]->rightFunctionName;
+            }
+            if($rightFunctionList[$i]->rightFunctionType == 3){
+                $rightAndFunction3[] = $rightFunctionList[$i]->rightFunctionName;
+            }
+        }
+
+        return view('admins.rights.add', compact('rightAndFunction1', 'rightAndFunction2', 'rightAndFunction3'));
     }
 
-    // public function store(Request $rq)
-    // {
-    //     $arrdate = ['updated_at' => date('Y-m-d'), 'created_at' => date('Y-m-d')];
-
-    //     $data = array_merge($rq->only('ticketTypeName', 'ticketTypeHeight', 'weekdays', 'money'), $arrdate);
-
-    //     $ticketTypes = new ticketType();
-
-    //     $ticketTypesList = $ticketTypes->addTicketTypes($data);
-
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
-
-    public function detail()
+    public function store(Request $rq)
     {
-        return view('admins.rights.detail');
+        $rights = new right();
+        $rightFunctions = new rightFunction();
+        $rightDetails = new rightDetail();
+
+        $arrdate = ['updated_at' => date('Y-m-d'), 'created_at' => date('Y-m-d')];
+
+        $dataR = array_merge($rq->only('rightName', 'rightDescription'), $arrdate);
+        $rightId = $rights->insertRight($dataR);
+
+        $rightFunctionList = $rq->rightFunction;
+        foreach($rightFunctionList as $item){
+            $rightFunctionId[] = $rightFunctions->getRightFunctionName($item);
+        }
+
+        foreach($rightFunctionId as $item){
+            $data = array_merge(['rightId'=>$rightId], ['rightFunctionId'=>$item], $arrdate);
+            $rightDetails->insertRightDetail($data);
+        }
+
+        return redirect()->route('admins.rights.list');
     }
 
     public function edit($id)
     {
-        // $ticketTypes = new ticketType();
+        $rights = new right();
+        $rightFunctions = new rightFunction();
+        $rightDetails = new rightDetail();
 
-        // $ticketType = $ticketTypes->getTicketTypes($id);
+        $rightFunctionList = $rightFunctions->getAllRightFunctions();
+        $rightAndFunction1 = [];
+        $rightAndFunction2 = [];
+        $rightAndFunction3 = [];
 
-        // return view('admins.ticket_types.edit', compact('ticketType'));
-        return view('admins.rights.edit');
+        for($i = 0; $i < count($rightFunctionList); $i++){
+            if($rightFunctionList[$i]->rightFunctionType == 1){
+                $rightAndFunction1[] = $rightFunctionList[$i]->rightFunctionName;
+            }
+            if($rightFunctionList[$i]->rightFunctionType == 2){
+                $rightAndFunction2[] = $rightFunctionList[$i]->rightFunctionName;
+            }
+            if($rightFunctionList[$i]->rightFunctionType == 3){
+                $rightAndFunction3[] = $rightFunctionList[$i]->rightFunctionName;
+            }
+        }
+
+        $right = $rights->getRightID($id);
+
+        $rightDetail = $rightDetails->getRightDetail($id);
+        $functionName1 = [];
+        $functionName2 = [];
+        $functionName3 = [];
+
+        for($i=0; $i<count($rightDetail); $i++){
+            if($rightDetail[$i]->rightFunctionType == 1){
+                $functionName1[] = $rightDetail[$i]->rightFunctionName;
+            }
+            if($rightDetail[$i]->rightFunctionType == 2){
+                $functionName2[] = $rightDetail[$i]->rightFunctionName;
+            }
+            if($rightDetail[$i]->rightFunctionType == 3){
+                $functionName3[] = $rightDetail[$i]->rightFunctionName;
+            }
+        }
+
+        $x = 0;
+        $y = 0;
+        $z = 0;
+
+        return view('admins.rights.edit', compact('right', 'rightAndFunction1', 'rightAndFunction2', 'rightAndFunction3', 'x', 'y', 'z', 'functionName1', 'functionName2', 'functionName3'));
 
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $ticketTypes = new ticketType();
+    public function update(Request $rq, $id)
+    {
+        $rights = new right();
+        $rightFunctions = new rightFunction();
+        $rightDetails = new rightDetail();
 
-    //     $update_at = ['updated_at' => date('Y-m-d')];
+        $rightFunctionList = $rq->rightFunction;
+        foreach($rightFunctionList as $item){
+            $rightFunctionIdList[] = $rightFunctions->getRightFunctionName($item);
+        }
 
-    //     // gán dữ liệu gửi lên vào biến data
-    //     $data = array_merge($request->only('ticketTypeName', 'ticketTypeHeight', 'weekdays', 'money', 'created_at'), $update_at);
+        $dataR = array_merge($rq->only('rightName', 'rightDescription', 'created_at'), ['updated_at' => date('Y-m-d')]);
+        $rights->updateRight($dataR, $id);
 
-    //     $updateorder = $ticketTypes->updateTicketTypes($data, $id);
+        $rightDetailList = $rightDetails->getRightDetailId($id);
 
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
+        if(count($rightFunctionIdList) == count($rightDetailList)){
+            for($i = 0; $i < count($rightFunctionIdList); $i++){
+                $dataRD = array_merge($rq->only('rightId', 'created_at'), ['rightFunctionId'=>$rightFunctionIdList[$i]], ['updated_at' => date('Y-m-d')]);
+                $rightDetailId = $rightDetailList[$i]->rightDetailId;
+                $rightDetails->updateRightDetail($dataRD, $rightDetailId);
+            }
+        }
 
-    // public function delete($id)
-    // {
-    //     $ticketTypes = new ticketType();
+        if(count($rightFunctionIdList) < count($rightDetailList)){
+            for($i = 0; $i < count($rightFunctionIdList); $i++){
+                $dataRD = array_merge($rq->only('rightId', 'created_at'), ['rightFunctionId'=>$rightFunctionIdList[$i]], ['updated_at' => date('Y-m-d')]);
+                $rightDetailId = $rightDetailList[$i]->rightDetailId;
+                $rightDetails->updateRightDetail($dataRD, $rightDetailId);
+            }
 
-    //     $delete = $ticketTypes->deleteTicketTypes($id);
+            while($i<count($rightDetailList)){
+                $rightDetails->deleteRightDetail($rightDetailList[$i]->rightDetailId);
+                $i++;
+            }
+        }
 
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
+        $arrdate = ['created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d')];
+
+        if(count($rightFunctionIdList) > count($rightDetailList)){
+            for($i = 0; $i < count($rightDetailList); $i++){
+                $dataRD = array_merge($rq->only('rightId', 'created_at'), ['rightFunctionId'=>$rightFunctionIdList[$i]], ['updated_at' => date('Y-m-d')]);
+                $rightDetailId = $rightDetailList[$i]->rightDetailId;
+                $rightDetails->updateRightDetail($dataRD, $rightDetailId);
+            }
+
+            while($i<count($rightFunctionIdList)){
+                $dataRD = array_merge(['rightId'=>$id], ['rightFunctionId'=>$rightFunctionIdList[$i]], $arrdate);
+                $rightDetails->insertRightDetail($dataRD);
+                $i++;
+            }
+        }
+        return redirect()->route('admins.rights.list');
+    }
+
+    public function delete($id)
+    {
+        $rights = new right();
+
+        $delete = $rights->deleteRight($id);
+
+        return redirect()->route('admins.rights.list');
+    }
 }

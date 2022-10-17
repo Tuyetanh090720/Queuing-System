@@ -15,6 +15,7 @@ class CustomerFactory extends Factory
     {
         return [
             'customerName'  => $this->faker->name(),
+            'customerCCCD'  => $this->faker->phoneNumber(),
             'customerPhone' => $this->faker->phoneNumber(),
             'customerEmail' => $this->faker->email(),
             'created_at' => $this->faker->date(),

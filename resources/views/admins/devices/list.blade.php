@@ -10,12 +10,12 @@
                         <div class="select">
                             <div class="dropdown">
                                 <div class="dropdown-block form-group">
-                                    <label for="active-status">Trạng thái hoạt động</label>
-                                    <input type="text" id="active-status" placeholder="Tất cả" readonly>
-                                    <div class="option active-status">
-                                        <div class="option-item active" onclick="chooseOption('active-status', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('active-status', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('active-status', 2)">Ngưng hoạt động</div>
+                                    <label for="deviceActiveST">Trạng thái hoạt động</label>
+                                    <input type="text" id="deviceActiveST" value="" readonly>
+                                    <div class="option deviceActiveST">
+                                        <div class="option-item active" onclick="chooseOption('deviceActiveST', 0)">Tất cả</div>
+                                        <div class="option-item" onclick="chooseOption('deviceActiveST', 1)">Hoạt động</div>
+                                        <div class="option-item" onclick="chooseOption('deviceActiveST', 2)">Ngưng hoạt động</div>
                                     </div>
                                 </div>
                             </div>
@@ -25,12 +25,12 @@
                         <div class="select">
                             <div class="dropdown">
                                 <div class="dropdown-block form-group">
-                                    <label for="connected-status">Trạng thái kết nối</label>
-                                    <input type="text" id="connected-status" placeholder="Tất cả" readonly>
-                                    <div class="option connected-status">
-                                        <div class="option-item active" onclick="chooseOption('connected-status', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('connected-status', 1)">Kết nối</div>
-                                        <div class="option-item" onclick="chooseOption('connected-status', 2)">Ngưng kết nối</div>
+                                    <label for="deviceConnectST">Trạng thái kết nối</label>
+                                    <input type="text" id="deviceConnectST" placeholder="Tất cả" readonly>
+                                    <div class="option deviceConnectST">
+                                        <div class="option-item active" onclick="chooseOption('deviceConnectST', 0)">Tất cả</div>
+                                        <div class="option-item" onclick="chooseOption('deviceConnectST', 1)">Kết nối</div>
+                                        <div class="option-item" onclick="chooseOption('deviceConnectST', 2)">Ngưng kết nối</div>
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                             <form action=""></form>
                             <label>Từ khóa</label>
                             <div class="search">
-                                <input type="text" required="required" name="Title"  class="form-control" id="txtTitle" placeholder="Tiêu đề">
+                                <input type="text" required="required" class="form-control" id="keywords" value="{{request()->keywords}}" placeholder="Từ khóa">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
@@ -57,16 +57,38 @@
                             var page = $(this).attr('href').split('page=')[1];
                             getMore(page);
                         });
+
+                        $('#keywords').on('keyup', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
+
+                        $('.deviceActiveST .option-item').on('click', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
+
+                        $('.deviceConnectST .option-item').on('click', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
                     });
 
                     function getMore(page) {
                         var search = $('#keywords').val();
 
-                        var accountActiveST = $('#accountActiveST').val();
+                        var deviceActiveST = $('#deviceActiveST').val();
+
+                        var deviceConnectST = $('#deviceConnectST').val();
 
                         $.ajax({
                             type: "GET",
-                            url: "{{ route('admins.device_types.getMore') }}"+ "?page=" + page,
+                            data: {
+                                'keywords':search,
+                                'deviceActiveST': deviceActiveST,
+                                'deviceConnectST': deviceConnectST
+                            },
+                            url: "{{ route('admins.devices.getMore') }}"+ "?page=" + page,
                             success:function(data) {
                             $('#pagination-ajax').html(data);
                             }

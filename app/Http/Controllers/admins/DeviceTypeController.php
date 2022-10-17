@@ -50,7 +50,7 @@ class DeviceTypeController extends Controller
     {
         $deviceTypes = new deviceType();
 
-        $deviceType = $deviceTypes->getDeviceType($id);
+        $deviceType = $deviceTypes->getDeviceTypeId($id);
 
         return view('admins.device_types.edit', compact('deviceType'));
 

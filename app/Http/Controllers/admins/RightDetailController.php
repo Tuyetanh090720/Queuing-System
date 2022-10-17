@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admins;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class RuleController extends Controller
+class RightDetailController extends Controller
 {
-    //
+
 }

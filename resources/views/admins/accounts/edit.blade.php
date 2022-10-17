@@ -68,7 +68,7 @@
                 </div>
                 <div class="input-group-btn">
                     <button class="btn btn-cancel">
-                        <a href="">Hủy</a>
+                        <a href="/admins/accounts/list">Hủy</a>
                     </button>
                     <button class="btn btn-login" type="submit">
                         Cập nhật

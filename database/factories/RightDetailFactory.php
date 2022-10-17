@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RuleFactory extends Factory
+class RightDetailFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,8 @@ class RuleFactory extends Factory
     public function definition()
     {
         return [
-            'ruleName'  => $this->faker->name(),
+            'rightId' => $this->faker->numberBetween($min = 1, $max = 3),
+            'rightFunctionId' => $this->faker->numberBetween($min = 1, $max = 3),
             'created_at' => $this->faker->date(),
             'updated_at' => $this->faker->date(),
         ];

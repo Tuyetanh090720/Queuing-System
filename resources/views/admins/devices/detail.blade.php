@@ -10,35 +10,35 @@
                     <div class="col-lg-6 col-md-6 col-sm-12" style="padding-right:25px">
                         <div class="detail-group">
                             <label>Mã thiết bị: </label>
-                            <span>KIO_01</span>
+                            <span>{{$device->deviceId}}</span>
                         </div>
                         <div class="detail-group">
                             <label>Tên thiết bị: </label>
-                            <span>KIO_01</span>
+                            <span>{{$device->deviceName}}</span>
                         </div>
                         <div class="detail-group">
                             <label>Địa chỉ IP: </label>
-                            <span>KIO_01</span>
+                            <span>{{$device->deviceAddressIp}}</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12" style="padding-right:25px">
                         <div class="detail-group">
                             <label>Loại thiết bị: </label>
-                            <span>KIO_01</span>
+                            <span>{{$device->deviceTypeName}}</span>
                         </div>
                         <div class="detail-group">
-                            <label>Tên đăng nhập: </label>
-                            <span>KIO_01</span>
+                            <label>Trạng thái hoạt động: </label>
+                            <span>{{$device->deviceActiveST}}</span>
                         </div>
                         <div class="detail-group">
-                            <label>Mật khẩu: </label>
-                            <span>KIO_01</span>
+                            <label>Trạng thái kết nối: </label>
+                            <span>{{$device->deviceConnectST}}</span>
                         </div>
                     </div>
                 </div>
                 <div class="detail-group">
                     <label>Dịch vụ sử dụng: </label>
-                    <span>KIO_01</span>
+                    <span>{{$serviceNameList}}</span>
                 </div>
             </div>
         </div>

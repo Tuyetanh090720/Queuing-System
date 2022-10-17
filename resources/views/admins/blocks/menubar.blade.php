@@ -11,6 +11,10 @@
                         <div class="sb-nav-link-icon"><i class="fa fa-window-restore"></i></div>
                         Dashboard
                     </a>
+                    <a class="nav-link collapsed" href="/admins/device_types/list">
+                        <div class="sb-nav-link-icon"><i class="fa fa-hard-drive"></i></div>
+                        Loại thiết bị
+                    </a>
                     <a class="nav-link collapsed" href="/admins/devices/list" >
                         <div class="sb-nav-link-icon"><i class="fa fa-desktop"></i></div>
                         Thiết bị
@@ -34,6 +38,7 @@
                     </a>
                     <div class="collapse" id="collapse6" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="/admins/right_functions/list">Quyền vai trò</a>
                             <a class="nav-link" href="/admins/rights/list">Quản lý vai trò</a>
                             <a class="nav-link" href="/admins/accounts/list">Quản lý tài khoản</a>
                             <a class="nav-link" href="/admins/accounts/diary">Nhật ký người dùng</a>

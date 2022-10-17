@@ -18,13 +18,12 @@ class CreateNumbersTable extends Migration
             $table->integer('numberSerial');
             $table->unsignedInteger('customerId');
             $table->foreign('customerId')->references('customerId')->on('customers');
-            $table->unsignedInteger('deviceId');
-            $table->foreign('deviceId')->references('deviceId')->on('devices');
-            $table->string('numberTime');
-            $table->string('numberExpiry');
+            $table->unsignedInteger('serviceId');
+            $table->foreign('serviceId')->references('serviceId')->on('services');
+            $table->date('created_at');
+            $table->date('numberExpiry');
             $table->string('numberST');
             $table->string('numberSupply');
-            $table->date('created_at');
             $table->date('updated_at');
         });
     }

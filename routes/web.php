@@ -6,8 +6,10 @@ use App\Http\Controllers\admins\DeviceController;
 use App\Http\Controllers\admins\ServiceController;
 use App\Http\Controllers\admins\NumberController;
 use App\Http\Controllers\admins\ReportController;
+use App\Http\Controllers\admins\RightFunctionController;
 use App\Http\Controllers\admins\RightController;
 use App\Http\Controllers\admins\AccountController;
+use App\Http\Controllers\admins\RuleController;
 use App\Http\Controllers\Auth\LoginController;
 
 
@@ -29,6 +31,38 @@ Route::prefix('admins')->name('admins.')->group(function() {
         return view('/admins/dashboard');
     });
 
+    Route::prefix('right_functions')->name('right_functions.')->group(function() {
+
+        Route::get('/list', [RightFunctionController::class, 'index'])->name('list');
+
+        Route::get('/add', [RightFunctionController::class, 'add'])->name('add');
+
+        Route::post('/add', [RightFunctionController::class, 'store'])->name('store');
+
+        Route::get('/edit/{id}', [RightFunctionController::class, 'edit'])->name('edit');
+
+        Route::post('/edit/{id}', [RightFunctionController::class, 'update'])->name('update');
+
+        Route::get('/delete/{id}', [RightFunctionController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('rights')->name('rights.')->group(function() {
+
+        Route::get('/list', [RightController::class, 'index'])->name('list');
+
+        Route::get('/getMore', [RightController::class, 'getMore'])->name('getMore');
+
+        Route::get('/add', [RightController::class, 'add'])->name('add');
+
+        Route::post('/add', [RightController::class, 'store'])->name('store');
+
+        Route::get('/edit/{id}', [RightController::class, 'edit'])->name('edit');
+
+        Route::post('/edit/{id}', [RightController::class, 'update'])->name('update');
+
+        Route::get('/delete/{id}', [RightController::class, 'delete'])->name('delete');
+    });
+
     Route::prefix('accounts')->name('accounts.')->group(function() {
 
         Route::get('/list', [AccountController::class, 'index'])->name('list');
@@ -44,8 +78,6 @@ Route::prefix('admins')->name('admins.')->group(function() {
         Route::get('/edit/{id}', [AccountController::class, 'edit'])->name('edit');
 
         Route::post('/edit/{id}', [AccountController::class, 'update'])->name('update');
-
-        Route::get('/delete/{id}', [AccountController::class, 'delete'])->name('delete');
 
         Route::get('/diary', [AccountController::class, 'diary'])->name('diary');
     });
@@ -71,6 +103,8 @@ Route::prefix('admins')->name('admins.')->group(function() {
 
         Route::get('/list', [DeviceController::class, 'index'])->name('list');
 
+        Route::get('/getMore', [DeviceController::class, 'getMore'])->name('getMore');
+
         Route::get('/add', [DeviceController::class, 'add'])->name('add');
 
         Route::post('/add', [DeviceController::class, 'store'])->name('store');
@@ -81,60 +115,61 @@ Route::prefix('admins')->name('admins.')->group(function() {
 
         Route::post('/edit/{id}', [DeviceController::class, 'update'])->name('update');
 
-        // Route::get('/delete/{id}', [DeviceController::class, 'delete'])->name('delete');
+    });
+
+    Route::prefix('rules')->name('rules.')->group(function() {
+
+        Route::get('/list', [RuleController::class, 'index'])->name('list');
+
+        Route::get('/getMore', [RuleController::class, 'getMore'])->name('getMore');
+
+        Route::get('/add', [RuleController::class, 'add'])->name('add');
+
+        Route::post('/add', [RuleController::class, 'store'])->name('store');
+
+        Route::get('/edit/{id}', [RuleController::class, 'edit'])->name('edit');
+
+        Route::post('/edit/{id}', [RuleController::class, 'update'])->name('update');
+
+        Route::get('/delete/{id}', [RuleController::class, 'delete'])->name('delete');
+
     });
 
     Route::prefix('services')->name('services.')->group(function() {
 
         Route::get('/list', [ServiceController::class, 'index'])->name('list');
 
+        Route::get('/getMore', [ServiceController::class, 'getMore'])->name('getMore');
+
         Route::get('/add', [ServiceController::class, 'add'])->name('add');
 
-        // Route::post('/add', [ServiceController::class, 'store'])->name('store');
+        Route::post('/add', [ServiceController::class, 'store'])->name('store');
 
         Route::get('/detail/{id}', [ServiceController::class, 'detail'])->name('detail');
 
+        Route::get('/getMoreDetail/{id}', [ServiceController::class, 'getMoreDetail'])->name('getMoreDetail');
+
         Route::get('/edit/{id}', [ServiceController::class, 'edit'])->name('edit');
 
-        // Route::post('/edit/{id}', [ServiceController::class, 'update'])->name('update');
+        Route::post('/edit/{id}', [ServiceController::class, 'update'])->name('update');
 
-        // Route::get('/delete/{id}', [ServiceController::class, 'delete'])->name('delete');
     });
 
     Route::prefix('numbers')->name('numbers.')->group(function() {
 
         Route::get('/list', [NumberController::class, 'index'])->name('list');
 
+        Route::get('/getMore', [NumberController::class, 'getMore'])->name('getMore');
+
         Route::get('/add', [NumberController::class, 'add'])->name('add');
 
-        // Route::post('/add', [NumberController::class, 'store'])->name('store');
+        Route::post('/add', [NumberController::class, 'store'])->name('store');
 
         Route::get('/detail/{id}', [NumberController::class, 'detail'])->name('detail');
-
-        Route::get('/edit/{id}', [NumberController::class, 'edit'])->name('edit');
-
-        // Route::post('/edit/{id}', [NumberController::class, 'update'])->name('update');
-
-        // Route::get('/delete/{id}', [NumberController::class, 'delete'])->name('delete');
-
     });
 
     Route::get('/reports', [NumberController::class, 'reports'])->name('reports');
 
-    Route::prefix('rights')->name('rights.')->group(function() {
-
-        Route::get('/list', [RightController::class, 'index'])->name('list');
-
-        Route::get('/add', [RightController::class, 'add'])->name('add');
-
-        Route::post('/add', [RightController::class, 'store'])->name('store');
-
-        Route::get('/edit/{id}', [RightController::class, 'edit'])->name('edit');
-
-        Route::post('/edit/{id}', [RightController::class, 'update'])->name('update');
-
-        Route::get('/delete/{id}', [RightController::class, 'delete'])->name('delete');
-    });
 });
 
 Auth::routes();

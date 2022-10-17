@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\device;
 use App\Models\service;
 use App\Models\deviceDetail;
-
+use App\Models\deviceType;
 
 
 class DeviceController extends Controller
@@ -17,24 +17,48 @@ class DeviceController extends Controller
     public function index()
     {
         $devices = new device();
-        $devicesList = $devices->getAllDevices(self::_PER_PAGE, '', '');
+        $deviceDetails = new deviceDetail();
 
-        dd($devicesList);
-        $services = new service();
-        $servicesList = $services->getFirstService($devicesList->serviceId);
+        $devicesList = $devices->getAllDevices(self::_PER_PAGE, '', '', '');
 
-        return view('admins.devices.list', compact('devicesList'));
+        for($i = 0; $i < count($devicesList); $i++){
+            $deviceId = $devicesList[$i]->deviceId;
+
+            $deviceDetail = $deviceDetails->getServiceId($deviceId);
+
+            $serviceNameList = $deviceDetail->implode('serviceName', ', ');
+
+            $deviceDetailList[] = $serviceNameList;
+        }
+        $j = 0;
+        return view('admins.devices.list', compact('devicesList', 'deviceDetailList', 'j'));
     }
 
     public function getMore(Request $rq)
     {
         $devices = new device();
+        $deviceDetails = new deviceDetail();
         $keywords = $rq->keywords;
         $deviceActiveST = $rq->deviceActiveST;
 
+        $deviceConnectST = $rq->deviceConnectST;
+
         if($rq->ajax()) {
-            $devicesList = $devices->getAlldevices(self::_PER_PAGE, $keywords, $deviceActiveST);
-            return view('admins.devices.table', compact('devicesList'))->render();
+            $devicesList = $devices->getAllDevices(self::_PER_PAGE, $keywords, $deviceActiveST, $deviceConnectST);
+
+            for($i = 0; $i < count($devicesList); $i++){
+                $deviceId = $devicesList[$i]->deviceId;
+
+                $deviceDetail = $deviceDetails->getServiceId($deviceId);
+
+                $serviceNameList = $deviceDetail->implode('serviceName', ', ');
+
+                $deviceDetailList[] = $serviceNameList;
+            }
+
+            $j = 0;
+
+            return view('admins.devices.table', compact('devicesList', 'deviceDetailList', 'j'))->render();
         }
     }
 
@@ -43,19 +67,24 @@ class DeviceController extends Controller
         $services = new service();
 
         $servicesList = $services->getServices();
-        $index = 0;
+        $i = 0;
 
-        return view('admins.devices.add', compact('servicesList', 'index'));
+        $deviceTypes = new deviceType();
+        $deviceTypeList =  $deviceTypes->getDeviceTypes();
+        $j = 0;
+
+        return view('admins.devices.add', compact('servicesList', 'deviceTypeList', 'i', 'j'));
     }
 
     public function store(Request $rq)
     {
         $devices = new device();
         $services = new service();
+        $deviceTypes = new deviceType();
         $deviceDetails = new deviceDetail();
 
         $servicesList = $services->getServices();
-        $serviceNameList = explode('/',$rq->serviceName);
+        $serviceNameList = explode(', ',$rq->serviceName);
         $serviceIdList = [];
         foreach($serviceNameList as $res){
             foreach($servicesList as $item){
@@ -65,9 +94,11 @@ class DeviceController extends Controller
             };
         }
 
+        $deviceTypeId = $deviceTypes->getDeviceTypeName($rq->deviceTypeName)->deviceTypeId;
+
         $arrdate = ['updated_at' => date('Y-m-d'), 'created_at' => date('Y-m-d')];
 
-        $dataD = array_merge($rq->only('deviceName', 'deviceAddressIp', 'deviceActiveST', 'deviceConnectST'), $arrdate);
+        $dataD = array_merge($rq->only('deviceName', 'deviceAddressIp', 'deviceActiveST', 'deviceConnectST'), ['deviceTypeId'=>$deviceTypeId], $arrdate);
         $deviceId = $devices->insertDevice($dataD);
 
         for($i = 0; $i < count($serviceIdList); $i++){
@@ -81,43 +112,100 @@ class DeviceController extends Controller
     public function detail($id)
     {
         $devices = new device();
+        $deviceDetails = new deviceDetail();
+
         $device = $devices->getdeviceDetail($id);
 
-        return view('admins.devices.detail', compact('device'));
+        $deviceDetail = $deviceDetails->getServiceId($id);
+        $serviceNameList = $deviceDetail->implode('serviceName', ', ');
+
+        return view('admins.devices.detail', compact('device', 'serviceNameList'));
     }
 
     public function edit($id)
     {
         $devices = new device();
+        $deviceDetails = new deviceDetail();
+        $services = new service();
+        $deviceTypes = new deviceType();
+
+        $servicesList = $services->getServices();
+        $i = 0;
+
+        $deviceTypeList =  $deviceTypes->getDeviceTypes();
+        $j = 0;
+
         $device = $devices->getdeviceDetail($id);
+        $deviceDetail = $deviceDetails->getServiceId($id);
+        $serviceNames = $deviceDetail->implode('serviceName', ', ');
+        $serviceNameList = explode(', ',$serviceNames);
 
-        $rights = new right();
-        $right = $rights->getRightID($device->rightId);
-        $rightList = $rights->getAllRights();
-        $index = 0;
-
-        return view('admins.devices.edit', compact('device', 'right', 'rightList', 'index'));
+        return view('admins.devices.edit', compact('servicesList', 'deviceTypeList', 'i', 'j', 'device', 'serviceNameList', 'serviceNames'));
 
     }
 
     public function update(Request $rq, $id)
     {
         $devices = new device();
+        $services = new service();
+        $deviceTypes = new deviceType();
+        $deviceDetails = new deviceDetail();
 
-        $rights = new right();
-        $rightsList = $rights->getAllRights();
+        $servicesList = $services->getServices();
+        $serviceNameList = explode(', ',$rq->serviceName);
+        $serviceIdList = [];
 
-        foreach($rightsList as $item){
-            if($item->rightName == $rq->rightName){
-                $rightId = $item->rightId;
+        foreach($serviceNameList as $res){
+            foreach($servicesList as $item){
+                if($item->serviceName == $res){
+                    $serviceIdList[] = $item->serviceId;
+                }
+            };
+        }
+
+        $deviceTypeId = $deviceTypes->getDeviceTypeName($rq->deviceTypeName)->deviceTypeId;
+
+        $dataD = array_merge($rq->only('deviceName', 'deviceAddressIp', 'deviceActiveST', 'deviceConnectST', 'created_at'), ['deviceTypeId'=>$deviceTypeId], ['updated_at' => date('Y-m-d')]);
+        $deviceUpdate = $devices->updateDevice($dataD, $id);
+
+        $deviceDetailList = $deviceDetails->getServiceId($id);
+
+        if(count($serviceIdList) == count($deviceDetailList)){
+            for($i = 0; $i < count($serviceIdList); $i++){
+                $dataDD = array_merge($rq->only('deviceId', 'created_at'), ['serviceId'=>$serviceIdList[$i]], ['updated_at' => date('Y-m-d')]);
+                $deviceDetailId = $deviceDetailList[$i]->deviceDetailId;
+                $deviceDetails->updateDeviceDetail($dataDD, $deviceDetailId);
             }
-        };
+        }
+
+        if(count($serviceIdList) < count($deviceDetailList)){
+            for($i = 0; $i < count($serviceIdList); $i++){
+                $dataDD = array_merge($rq->only('deviceId', 'created_at'), ['serviceId'=>$serviceIdList[$i]], ['updated_at' => date('Y-m-d')]);
+                $deviceDetailId = $deviceDetailList[$i]->deviceDetailId;
+                $deviceDetails->updateDeviceDetail($dataDD, $deviceDetailId);
+            }
+
+            while($i<count($deviceDetailList)){
+                $deviceDetails->deleteDeviceDetail($deviceDetailList[$i]->deviceDetailId);
+                $i++;
+            }
+        }
 
         $arrdate = ['created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d')];
 
-        $data = array_merge($rq->only('deviceName','deviceLogin', 'devicePw', 'devicePhone', 'deviceEmail', 'deviceActiveST'), ['rightId' => $rightId], $arrdate);
+        if(count($serviceIdList) > count($deviceDetailList)){
+            for($i = 0; $i < count($deviceDetailList); $i++){
+                $dataDD = array_merge($rq->only('deviceId', 'created_at'), ['serviceId'=>$serviceIdList[$i]], ['updated_at' => date('Y-m-d')]);
+                $deviceDetailId = $deviceDetailList[$i]->deviceDetailId;
+                $deviceDetails->updateDeviceDetail($dataDD, $deviceDetailId);
+            }
 
-        $update = $devices->updatedevice($data, $id);
+            while($i<count($serviceIdList)){
+                $dataDD = array_merge(['deviceId'=>$id], ['serviceId'=>$serviceIdList[$i]], $arrdate);
+                $deviceDetails->insertDeviceDetail($dataDD);
+                $i++;
+            }
+        }
 
         return redirect()->route('admins.devices.list');
     }

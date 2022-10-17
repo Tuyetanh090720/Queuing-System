@@ -38,9 +38,14 @@
 
         @yield('number-list')
         @yield('number-add')
-        @yield('umber-detail')
+        @yield('number-detail')
 
         @yield('report-list')
+
+        @yield('right-function-list')
+        @yield('right-function-add')
+        @yield('right-function-detail')
+        @yield('right-function-edit')
 
         @yield('right-list')
         @yield('right-add')

@@ -17,6 +17,8 @@ class CreateDevicesTable extends Migration
             $table->increments('deviceId');
             $table->string('deviceName');
             $table->string('deviceAddressIp');
+            $table->unsignedInteger('deviceTypeId');
+            $table->foreign('deviceTypeId')->references('deviceTypeId')->on('device_types');
             $table->string('deviceActiveST');
             $table->string('deviceConnectST');
             $table->date('created_at');

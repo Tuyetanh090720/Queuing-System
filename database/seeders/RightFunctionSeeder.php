@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\rule;
+use App\Models\rightFunction;
 
-
-class RuleSeeder extends Seeder
+class RightFunctionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +14,6 @@ class RuleSeeder extends Seeder
      */
     public function run()
     {
-        rule::factory()->times(3)->create();
+        rightFunction::factory()->times(3)->create();
     }
 }

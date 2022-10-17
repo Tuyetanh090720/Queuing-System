@@ -10,120 +10,67 @@
                         <div class="select">
                             <div class="dropdown">
                                 <div class="dropdown-block form-group">
-                                    <label for="active-status">Trạng thái hoạt động</label>
-                                    <input type="text" id="active-status" placeholder="Tất cả" readonly>
-                                    <div class="option active-status">
-                                        <div class="option-item active" onclick="chooseOption('active-status', 0)">Tất cả</div>
-                                        <div class="option-item" onclick="chooseOption('active-status', 1)">Hoạt động</div>
-                                        <div class="option-item" onclick="chooseOption('active-status', 2)">Ngưng hoạt động</div>
+                                    <label for="serviceActiveST">Trạng thái hoạt động</label>
+                                    <input type="text" id="serviceActiveST" placeholder="Tất cả" readonly>
+                                    <div class="option serviceActiveST">
+                                        <div class="option-item active" onclick="chooseOption('serviceActiveST', 0)">Tất cả</div>
+                                        <div class="option-item" onclick="chooseOption('serviceActiveST', 1)">Hoạt động</div>
+                                        <div class="option-item" onclick="chooseOption('serviceActiveST', 2)">Ngưng hoạt động</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm 6">
-                        <div class="form-group">
-                            <label>Chọn thời gian</label>
-                            <div class="filter-time">
-                                <input type="text" name="start-at"  class="form-control"  placeholder="10/10/1995" required>
-                                <i class="fa fa-caret-right"></i>
-                                <input type="text" name="start-at"  class="form-control"  placeholder="10/10/1995" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 col-sm 6">
+                    <div class="d-flex justify-content-end">
                         <div class="form-group">
                             <label>Từ khóa</label>
                             <div class="search">
-                                <input type="text" required="required" name="Title"  class="form-control" id="txtTitle" placeholder="Tiêu đề">
+                                <input type="text" required="required" class="form-control" id="keywords" value="{{request()->keywords}}" placeholder="Từ khóa">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Mã dịch vụ</th>
-                            <th>Tên dịch vụ</th>
-                            <th>Mô tả</th>
-                            <th>Trạng thái hoạt động</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #34CD26"></i> Hoạt động</td>
-                            <td style="text-align: center;">
-                                <a href="/admins/services/detail/1">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="/admins/services/edit/1">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #EC3740"></i> Ngưng hoạt động</td>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #34CD26"></i> Hoạt động</td>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>KIO_01</td>
-                            <td>Kiosk</td>
-                            <td>192.168.1.10</td>
-                            <td><i class="fa fa-circle" style="color: #EC3740"></i> Ngưng hoạt động</td>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Chi tiết
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                            <td style="text-align: center;">
-                                <a href="">Cập nhật
-                                    <ion-icon name="create-outline"></ion-icon>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="table-responsive" id="pagination-ajax">
+                @include('admins/services/table')
+                <script>
+                    $(document).ready(function() {
+                        $(document).on('click', '.pagination a', function(event) {
+                            event.preventDefault();
+                            var page = $(this).attr('href').split('page=')[1];
+                            getMore(page);
+                        });
+
+                        $('#keywords').on('keyup', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
+
+                        $('.serviceActiveST .option-item').on('click', function() {
+                            $value = $(this).val();
+                            getMore();
+                        });
+                    });
+
+                    function getMore(page) {
+                        var search = $('#keywords').val();
+
+                        var serviceActiveST = $('#serviceActiveST').val();
+
+                        $.ajax({
+                            type: "GET",
+                            data: {
+                                'keywords':search,
+                                'serviceActiveST': serviceActiveST,
+                            },
+                            url: "{{ route('admins.services.getMore') }}"+ "?page=" + page,
+                            success:function(data) {
+                                $('#pagination-ajax').html(data);
+                            }
+                        });
+                    }
+                </script>
             </div>
         </div>
         <div class="btn-control">
@@ -131,7 +78,7 @@
                 <a href="{{route('admins.services.add')}}">
                     <i class="fa fa-square-plus"></i>
                     <br/>
-                    Thêm thiết bị
+                    Thêm dịch vụ
                 </a>
             </button>
         </div>

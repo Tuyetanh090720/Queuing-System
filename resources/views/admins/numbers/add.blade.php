@@ -3,29 +3,57 @@
 <div class="container-fluid">
     <span class="title-page">Quản lý dịch vụ</span>
     <div class="container-white">
-        <div class="number-add">
-            <span class="title-center">Cấp số mới</span><br/>
-            <span class="span-center">Dịch vụ khách lựa chọn</span>
-            <div class="dropdown">
-                <div class="dropdown-block form-group">
-                    <label for="service-name"></label>
-                    <input type="text" id="active-status" placeholder="Tất cả" readonly>
-                    <div class="option active-status">
-                        <div class="option-item active" onclick="chooseOption('active-status', 0)">Tất cả</div>
-                        <div class="option-item" onclick="chooseOption('active-status', 1)">Hoạt động</div>
-                        <div class="option-item" onclick="chooseOption('active-status', 2)">Ngưng hoạt động</div>
+        <span class="title-center">Cấp số mới</span><br/>
+        <form method="POST" action="/admins/numbers/add">
+            @csrf
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12" style="padding-right:25px">
+                    <div class="form-group">
+                        <label for="customerName">Tên khách hàng</label>
+                        <input type="text" class="form-control" name="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerCCCD">CCCD</label>
+                        <input type="text" class="form-control" name="customerCCCD" required>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="customerPhone">Số điện thoại</label>
+                        <input type="text" class="form-control" name="customerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">Email</label>
+                        <input type="text" class="form-control" name="customerEmail" required>
                     </div>
                 </div>
             </div>
+            <div class="select" style="width: 100%">
+                <div class="dropdown">
+                    <div class="dropdown-block form-group">
+                        <label for="serviceName">Dịch vụ khách lựa chọn</label>
+                        <input type="text" id="serviceName" name="serviceName" placeholder="Tất cả" readonly>
+                        <div class="option serviceName">
+                            @foreach ($servicesList as $item)
+                                <div class="option-item" onclick="chooseOption('serviceName', {{$i++}})">{{$item->serviceName}}</div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="error-required">
+                <i class="fa fa-star-of-life"></i>
+                <span>Là trường thông tin bắt buộc</span>
+            </div>
             <div class="input-group-btn">
                 <button class="btn btn-cancel">
-                    <a href="">Hủy</a>
+                    <a href="/admins/numbers/list">Hủy</a>
                 </button>
-                <button class="btn btn-login" id="popup">
-                    <a>In số</a>
+                <button class="btn btn-login" type="submit">
+                    In số
                 </button>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 <div class="popup-block container-fluid">

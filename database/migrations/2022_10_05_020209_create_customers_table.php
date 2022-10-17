@@ -16,12 +16,14 @@ class CreateCustomersTable extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->increments('customerId');
             $table->string('customerName');
+            $table->string('customerCCCD');
             $table->string('customerPhone');
             $table->string('customerEmail');
             $table->date('created_at');
             $table->date('updated_at');
         });
     }
+
 
     /**
      * Reverse the migrations.

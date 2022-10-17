@@ -23,7 +23,7 @@ function addTag(anything, i) {
     if (tag.length > 1 && !tags.includes(tag)) {
         createTag(tag);
         tags.push(tag);
-        input.value += '/' + tag
+        input.value += ', ' + tag
     }
 }
 
@@ -31,8 +31,17 @@ function addTag(anything, i) {
 /*Xoá tag*/
 function remove(element, tag) {
     let index = tags.indexOf(tag);
-    var a = input.value;
-    var b = a.replace(`/${tag}`, '');
+    console.log(tag)
+    if (`, ${tag}`) {
+        var a = input.value;
+        var b = a.replace(`, ${tag}`, '');
+        input.value = b;
+    }
+    if (`${tag}`) {
+        var a = input.value;
+        var b = a.replace(`${tag}`, '');
+        input.value = b;
+    }
+
     element.parentElement.remove();
-    input.value = b;
 }

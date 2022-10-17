@@ -21,7 +21,15 @@ class deviceType extends Model
         return $deviceTypes->paginate($perPage);
     }
 
-    public function getDeviceType($id){
+    public function getDeviceTypes(){
+        return DB::table($this->table)->get();
+    }
+
+    public function getDeviceTypeName($name){
+        return DB::table($this->table)->where('deviceTypeName', $name)->first();
+    }
+
+    public function getDeviceTypeId($id){
         return DB::table($this->table)->where('deviceTypeId', $id)->first();
     }
 

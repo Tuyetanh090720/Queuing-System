@@ -44,6 +44,7 @@ class AccountController extends Controller
 
         if($rq->ajax()) {
             $accountsList = $accounts->getAllAccounts(self::_PER_PAGE, $keywords, $accountActiveST);
+
             return view('admins.accounts.table', compact('accountsList'))->render();
         }
     }
@@ -56,7 +57,7 @@ class AccountController extends Controller
     public function add()
     {
         $rights = new right();
-        $rightList = $rights->getAllRights();
+        $rightList = $rights->getRights();
         $index = 0;
 
         return view('admins.accounts.add', compact('rightList', 'index'));
@@ -67,7 +68,7 @@ class AccountController extends Controller
         $accounts = new account();
 
         $rights = new right();
-        $rightsList = $rights->getAllRights();
+        $rightsList = $rights->getRights();
 
         foreach($rightsList as $item){
             if($item->rightName == $rq->rightName){
@@ -100,7 +101,7 @@ class AccountController extends Controller
 
         $rights = new right();
         $right = $rights->getRightID($account->rightId);
-        $rightList = $rights->getAllRights();
+        $rightList = $rights->getRights();
         $index = 0;
 
         return view('admins.accounts.edit', compact('account', 'right', 'rightList', 'index'));
@@ -112,7 +113,7 @@ class AccountController extends Controller
         $accounts = new account();
 
         $rights = new right();
-        $rightsList = $rights->getAllRights();
+        $rightsList = $rights->getRights();
 
         foreach($rightsList as $item){
             if($item->rightName == $rq->rightName){

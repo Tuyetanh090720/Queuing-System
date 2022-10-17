@@ -15,24 +15,47 @@ class device extends Model
         return DB::table($this->table)->insertGetId($data);
     }
 
-    public function getAlldevices($perPage, $keywords, $deviceActiveST){
-        $devices = DB::table($this->table)->join('device_details', 'devices.deviceId', '=', 'device_details.deviceId');
+    public function getAllDevices($perPage, $keywords, $deviceActiveST, $deviceConnectST){
+        $devices = DB::table($this->table);
 
         if($keywords && !empty($keywords)) {
-            $devices = $devices->where('devices.deviceLogin', 'like', "%{$keywords}%")
-                                ->orwhere('rights.rightName', 'like', "%{$keywords}%");
+            $devices = $devices->where('deviceName', 'like', "%{$keywords}%")
+                                ->orwhere('deviceAddressIp', 'like', "%{$keywords}%");
         }
 
         if($deviceActiveST && !empty($deviceActiveST)) {
-            $devices = $devices->where('devices.deviceActiveST', $deviceActiveST);
+            if($deviceActiveST == "Tất cả"){
+                $devices = $devices;
+            }
+            else{
+                $devices = $devices->where('deviceActiveST', $deviceActiveST);
+            }
+        }
+
+        if($deviceConnectST && !empty($deviceConnectST)) {
+            if($deviceConnectST == "Tất cả"){
+                $devices = $devices;
+            }
+            else{
+                $devices = $devices->where('deviceConnectST', $deviceConnectST);
+            }
         }
 
         return $devices->paginate($perPage);
     }
 
+    public function getDevice($id){
+        $devices = DB::table($this->table)->leftjoin('device_details', 'device_details.deviceId', '=', 'devices.deviceId')
+                                            ->leftjoin('services', 'services.serviceId', '=', 'device_details.serviceId')
+                                            ->where('deviceId', $id)->get();
+
+        return $devices;
+    }
+
     public function getdeviceDetail($id){
-        $devices = DB::table($this->table)->join('rights', 'devices.rightId', '=', 'rights.rightId');
-        $devices = $devices->where('deviceId', $id)->first();
+        $devices = DB::table($this->table)->leftjoin('device_types', 'device_types.deviceTypeId', '=', 'devices.deviceTypeId')
+                                            ->where('deviceId', $id)
+                                            ->first();
 
         return $devices;
     }

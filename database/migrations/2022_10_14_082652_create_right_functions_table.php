@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRulesTable extends Migration
+class CreateRightFunctionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateRulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('rules', function (Blueprint $table) {
-            $table->increments('ruleId');
-            $table->string('ruleName');
+        Schema::create('right_functions', function (Blueprint $table) {
+            $table->increments('rightFunctionId');
+            $table->string('rightFunctionName');
+            $table->integer('rightFunctionType');
             $table->date('created_at');
             $table->date('updated_at');
         });
@@ -28,6 +29,6 @@ class CreateRulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rules');
+        Schema::dropIfExists('right_functions');
     }
 }

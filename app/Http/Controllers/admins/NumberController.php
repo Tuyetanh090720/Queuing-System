@@ -5,20 +5,48 @@ namespace App\Http\Controllers\admins;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\number;
+use App\Models\service;
+use App\Models\customer;
 
 
 class NumberController extends Controller
 {
+    const _PER_PAGE = 3;
+
     public function index()
     {
         $numbers = new number();
+        $services = new service();
 
-        // $ticketTypesList = $devices->getAllTicketTypes();
+        $numbersList = $numbers->getAllnumbers(self::_PER_PAGE, '', '', '', '', '', '', '');
 
-        // return view('admins.ticket_types.lists', compact('ticketTypesList'));
+        $servicesList = $services->getServices();
+        $i = 1;
 
-        return view('admins.numbers.list');
+        return view('admins.numbers.list', compact('numbersList', 'servicesList', 'i'));
+    }
 
+    public function getMore(Request $rq)
+    {
+        $numbers = new number();
+        $services = new service();
+
+        $keywords = $rq->keywords;
+        $serviceName = $rq->serviceName;
+        $numberST = $rq->numberST;
+        $numberSupply = $rq->numberSupply;
+        $created_at = $rq->created_at;
+        $numberExpiry = $rq->numberExpiry;
+
+        $servicesList = $services->getServices();
+
+        $i = 1;
+
+        if($rq->ajax()) {
+            $numbersList = $numbers->getAllnumbers(self::_PER_PAGE, $keywords, $serviceName, $numberST, $numberSupply, $created_at, $numberExpiry);
+
+            return view('admins.numbers.table', compact('numbersList', 'servicesList', 'i'))->render();
+        }
     }
 
     public function reports()
@@ -28,58 +56,48 @@ class NumberController extends Controller
 
     public function add()
     {
-        return view('admins.numbers.add');
+        $services = new service();
+
+        $servicesList = $services->getServices();
+
+        $i = 0;
+
+        $services = new service();
+        return view('admins.numbers.add', compact('servicesList', 'i'));
     }
 
-    // public function store(Request $rq)
-    // {
-    //     $arrdate = ['updated_at' => date('Y-m-d'), 'created_at' => date('Y-m-d')];
+    public function store(Request $rq)
+    {
+        $numbers = new number();
+        $customers = new customer();
+        $services = new service();
 
-    //     $data = array_merge($rq->only('ticketTypeName', 'ticketTypeHeight', 'weekdays', 'money'), $arrdate);
+        $arrdate = ['updated_at' => date('Y-m-d'), 'created_at' => date('Y-m-d')];
 
-    //     $ticketTypes = new ticketType();
+        $dataC = array_merge($rq->only('customerName', 'customerCCCD', 'customerPhone', 'customerEmail'), $arrdate);
+        $customerId = $customers->insertCustomer($dataC);
 
-    //     $ticketTypesList = $ticketTypes->addTicketTypes($data);
+        $numberSerial = $numbers->getNumberSerialMax() + 1;
 
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
+        $serviceId = $services->getServiceName($rq->serviceName)->serviceId;
+
+        $created_at = date('Y-m-d');
+        $numberExpiry = strtotime(date("Y-m-d", strtotime($created_at)) . " +5 day");
+        $numberExpiry = strftime("%Y-%m-%d", $numberExpiry);
+
+        $numberST = "Đang thực hiện";
+        $numberSupply = "Hệ thống";
+
+        $dataN = array_merge(['numberSerial'=>$numberSerial], ['customerId'=>$customerId], ['serviceId'=>$serviceId], ['created_at' => date('Y-m-d')], ['numberExpiry' => $numberExpiry], ['numberST' => $numberST], ['numberSupply' => $numberSupply], ['updated_at' => date('Y-m-d')]);
+
+
+        $numberId = $numbers->insertGetId($dataN);
+
+        return redirect()->route('admins.numbers.list');
+    }
 
     public function detail()
     {
         return view('admins.numbers.detail');
     }
-
-    public function edit($id)
-    {
-        // $ticketTypes = new ticketType();
-
-        // $ticketType = $ticketTypes->getTicketTypes($id);
-
-        // return view('admins.ticket_types.edit', compact('ticketType'));
-        return view('admins.numbers.edit');
-
-    }
-
-    // public function update(Request $request, $id)
-    // {
-    //     $ticketTypes = new ticketType();
-
-    //     $update_at = ['updated_at' => date('Y-m-d')];
-
-    //     // gán dữ liệu gửi lên vào biến data
-    //     $data = array_merge($request->only('ticketTypeName', 'ticketTypeHeight', 'weekdays', 'money', 'created_at'), $update_at);
-
-    //     $updateorder = $ticketTypes->updateTicketTypes($data, $id);
-
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
-
-    // public function delete($id)
-    // {
-    //     $ticketTypes = new ticketType();
-
-    //     $delete = $ticketTypes->deleteTicketTypes($id);
-
-    //     return redirect()->route('admins.ticket_types.lists');
-    // }
 }

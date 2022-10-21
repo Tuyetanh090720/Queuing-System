@@ -13,6 +13,7 @@
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     </head>
 <body class="sb-nav-fixed">
         {{-- header --}}
@@ -39,6 +40,7 @@
         @yield('number-list')
         @yield('number-add')
         @yield('number-detail')
+        @yield('number-popup')
 
         @yield('report-list')
 
@@ -63,10 +65,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-        <script src='{{asset('assets/admins/js/chart-area-demo.js')}}'></script>
-        <script src='{{asset('assets/admins/js/chart-bar-demo.js')}}'></script>
-        <script src='{{asset('assets/admins/js/chart-pie-demo.js')}}'></script>
-        <script src='{{asset('assets/admins/js/datatables-demo.js')}}'></script>
+        <script src='{{asset('assets/admins/js/Chart.min.js')}}'></script>
         <script src='{{asset('assets/admins/js/scripts.js')}}'></script>
         @stack('scripts')
     </body>

@@ -15,7 +15,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span>42000</span>
+                        <span>{{$countNumbers}}</span>
                         <div class="index">
                             <i class="fa fa-arrow-up"></i>
                             99%
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span>42000</span>
+                        <span>{{$numberSt[0]}}</span>
                         <div class="index">
                             <i class="fa fa-arrow-up"></i>
                             99%
@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span>42000</span>
+                        <span>{{$numberSt[1]}}</span>
                         <div class="index">
                             <i class="fa fa-arrow-up"></i>
                             99%
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span>42000</span>
+                        <span>{{$numberSt[2]}}</span>
                         <div class="index">
                             <i class="fa fa-arrow-up"></i>
                             99.99%
@@ -86,19 +86,45 @@
                 <span class="title-chart">Bảng thống kê theo ngày</span>
                 <div class="select-option">
                     <div class="dropdown day-select" id="dropdown">
-                        <input type="text" name="day-status" id="day-status" placeholder="Ngày" readonly>
-                        <div class="option day-status">
-                            <div class="option-item active" onclick="chooseOption('day-status', 0)">Ngày</div>
-                            <div class="option-item" onclick="chooseOption('day-status', 1)">Tuần</div>
-                            <div class="option-item" onclick="chooseOption('day-status', 2)">Tháng</div>
+                        <input type="text" id="day_status" placeholder="Ngày" readonly>
+                        <div class="option day_status">
+                            <a href="/admins?day_status=Ngay"><div class="option-item active" onclick="chooseOption('day_status', 0)">Ngay</div></a>
+                            <a href="/admins?day_status=Tuan"><div class="option-item" onclick="chooseOption('day_status', 1)">Tuan</div></a>
+                            <a href="/admins?day_status=Thang"><div class="option-item" onclick="chooseOption('day_status', 2)">Thang</div></a>
+                            {{-- <div class="option-item active" onclick="chooseOption('day_status', 0)">Ngày</div>
+                            <div class="option-item" onclick="chooseOption('day_status', 1)">Tuần</div>
+                            <div class="option-item" onclick="chooseOption('day_status', 2)">Tháng</div> --}}
                         </div>
                     </div>
                     <span>Xem theo</span>
                 </div>
             </div>
             <span>Tháng 11/2021</span>
-            <div class="chart">
-                <img src="{{asset('assets/admins/img/graphic.png')}}" alt="">
+            <div class="chart" id="chart">
+                @include ('admins.dashboards.chartDay')
+                <script>
+                    $(document).ready(function() {
+                        $(document).on('click', '.day_status a', function(event) {
+                            event.preventDefault();
+                            var day_status = $(this).attr('href').split('day_status=')[1];
+                            createChart(day_status);
+                            console.log(day_status);
+                        });
+                    });
+
+                    function createChart(day_status) {
+                        $.ajax({
+                            type: "GET",
+                            data: {
+                                'day_status':day_status,
+                            },
+                            url: "{{ route('admins.createChart') }}",
+                            success:function(data) {
+                                $('#chart').html(data);
+                            }
+                        });
+                    }
+                </script>
             </div>
         </div>
     </div>
@@ -113,7 +139,7 @@
                 </div>
             </div>
             <div class="color-device col-lg-3 col-md-3 col-sm-3 ">
-                <span class="overview-quantity">445</span>
+                <span class="overview-quantity">{{$countDevices}}</span>
                 <div class="sb-nav-link-icon">
                     <i class="fa fa-desktop"></i>
                     <span>Thiết bị</span>
@@ -121,8 +147,8 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="device-information">
-                    <span>Đang hoạt động</span><span class="color-device">452</span><br/>
-                    <span>Ngưng hoạt động</span><span class="color-device">452</span>
+                    <span>Đang hoạt động</span><span class="color-device">{{$deviceActiveST[0]}}</span><br/>
+                    <span>Ngưng hoạt động</span><span class="color-device">{{$deviceActiveST[1]}}</span>
                 </div>
             </div>
         </div>
@@ -135,7 +161,7 @@
                 </div>
             </div>
             <div class="color-service col-lg-3 col-md-3 col-sm-3">
-                <span class="overview-quantity">445</span>
+                <span class="overview-quantity">{{$countServices}}</span>
                 <div class="sb-nav-link-icon">
                     <i class="fa fa-comments"></i>
                     <span>Dịch vụ</span>
@@ -143,8 +169,8 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="service-information ">
-                    <span>Đang hoạt động</span><span class="color-service">452</span><br/>
-                    <span>Ngưng hoạt động</span><span class="color-service">452</span>
+                    <span>Đang hoạt động</span><span class="color-service">{{$serviceActiveST[0]}}</span><br/>
+                    <span>Ngưng hoạt động</span><span class="color-service">{{$serviceActiveST[1]}}</span>
                 </div>
             </div>
         </div>
@@ -157,7 +183,7 @@
                 </div>
             </div>
             <div class="color-progression col-lg-3 col-md-3 col-sm-3">
-                <span class="overview-quantity">445</span>
+                <span class="overview-quantity">{{$countNumbers}}</span>
                 <div class="sb-nav-link-icon">
                     <i class="fa fa-layer-group"></i>
                     <span>Cấp số</span>
@@ -165,9 +191,9 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="progression-information">
-                    <span>Đã sử dụng</span><span class="color-progression">452</span><br/>
-                    <span>Đang chờ</span><span class="color-progression">452</span><br/>
-                    <span>Bỏ qua</span><span class="color-progression">452</span>
+                    <span>Đã sử dụng</span><span class="color-progression">{{$numberSt[0]}}</span><br/>
+                    <span>Đang chờ</span><span class="color-progression">{{$numberSt[1]}}</span><br/>
+                    <span>Bỏ qua</span><span class="color-progression">{{$numberSt[2]}}</span>
                 </div>
             </div>
         </div>

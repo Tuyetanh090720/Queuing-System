@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\number;
 use App\Models\service;
+use App\Models\device;
 use App\Models\customer;
-
 
 class NumberController extends Controller
 {
@@ -18,7 +18,7 @@ class NumberController extends Controller
         $numbers = new number();
         $services = new service();
 
-        $numbersList = $numbers->getAllnumbers(self::_PER_PAGE, '', '', '', '', '', '', '');
+        $numbersList = $numbers->getAllnumbers(self::_PER_PAGE, '', '', '', '', '');
 
         $servicesList = $services->getServices();
         $i = 1;
@@ -35,23 +35,21 @@ class NumberController extends Controller
         $serviceName = $rq->serviceName;
         $numberST = $rq->numberST;
         $numberSupply = $rq->numberSupply;
-        $created_at = $rq->created_at;
-        $numberExpiry = $rq->numberExpiry;
 
         $servicesList = $services->getServices();
 
         $i = 1;
 
         if($rq->ajax()) {
-            $numbersList = $numbers->getAllnumbers(self::_PER_PAGE, $keywords, $serviceName, $numberST, $numberSupply, $created_at, $numberExpiry);
+            $numbersList = $numbers->getAllnumbers(self::_PER_PAGE, $keywords, $serviceName, $numberST, $numberSupply);
 
             return view('admins.numbers.table', compact('numbersList', 'servicesList', 'i'))->render();
         }
     }
 
-    public function reports()
+    public function popup()
     {
-        return view('admins.reports');
+        return view('admins.numbers.popup');
     }
 
     public function add()
@@ -90,14 +88,18 @@ class NumberController extends Controller
 
         $dataN = array_merge(['numberSerial'=>$numberSerial], ['customerId'=>$customerId], ['serviceId'=>$serviceId], ['created_at' => date('Y-m-d')], ['numberExpiry' => $numberExpiry], ['numberST' => $numberST], ['numberSupply' => $numberSupply], ['updated_at' => date('Y-m-d')]);
 
-
         $numberId = $numbers->insertGetId($dataN);
 
-        return redirect()->route('admins.numbers.list');
+        return redirect()->route('admins.numbers.popup');
     }
 
-    public function detail()
+    public function detail($id)
     {
-        return view('admins.numbers.detail');
+        $numbers = new number();
+
+        $numberDetail = $numbers->getNumberDetail($id);
+
+        return view('admins.numbers.detail', compact('numberDetail'));
     }
+
 }

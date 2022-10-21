@@ -5,50 +5,389 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 // Area Chart Example
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
-    datasets: [{
-      label: "Sessions",
-      lineTension: 0.3,
-      backgroundColor: "rgba(2,117,216,0.2)",
-      borderColor: "rgba(2,117,216,1)",
-      pointRadius: 5,
-      pointBackgroundColor: "rgba(2,117,216,1)",
-      pointBorderColor: "rgba(255,255,255,0.8)",
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(2,117,216,1)",
-      pointHitRadius: 50,
-      pointBorderWidth: 2,
-      data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
-    }],
-  },
-  options: {
-    scales: {
-      xAxes: [{
-        time: {
-          unit: 'date'
-        },
-        gridLines: {
-          display: false
-        },
-        ticks: {
-          maxTicksLimit: 7
-        }
-      }],
-      yAxes: [{
-        ticks: {
-          min: 0,
-          max: 40000,
-          maxTicksLimit: 5
-        },
-        gridLines: {
-          color: "rgba(0, 0, 0, .125)",
-        }
-      }],
+    type: 'line',
+    data: {
+        labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+        datasets: [{
+            label: "Sessions",
+            lineTension: 0.3,
+            backgroundColor: "rgba(2,117,216,0.2)",
+            borderColor: "rgba(2,117,216,1)",
+            pointRadius: 5,
+            pointBackgroundColor: "rgba(2,117,216,1)",
+            pointBorderColor: "rgba(255,255,255,0.8)",
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(2,117,216,1)",
+            pointHitRadius: 50,
+            pointBorderWidth: 2,
+            data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
+        }],
     },
-    legend: {
-      display: false
+    options: {
+        scales: {
+            xAxes: [{
+                time: {
+                    unit: 'date'
+                },
+                gridLines: {
+                    display: false
+                },
+                ticks: {
+                    maxTicksLimit: 7
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 40000,
+                    maxTicksLimit: 5
+                },
+                gridLines: {
+                    color: "rgba(0, 0, 0, .125)",
+                }
+            }],
+        },
+        legend: {
+            display: false
+        }
     }
-  }
 });
+
+
+// function getMore(page) {
+//     var ctx = document.getElementById("myAreaChart");
+
+//     var myLineChart = new Chart(ctx, {
+//         type: 'line',
+//         data: {
+//             labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+//             datasets: [{
+//                 label: "Sessions",
+//                 lineTension: 0.3,
+//                 backgroundColor: "rgba(2,117,216,0.2)",
+//                 borderColor: "rgba(2,117,216,1)",
+//                 pointRadius: 5,
+//                 pointBackgroundColor: "rgba(2,117,216,1)",
+//                 pointBorderColor: "rgba(255,255,255,0.8)",
+//                 pointHoverRadius: 5,
+//                 pointHoverBackgroundColor: "rgba(2,117,216,1)",
+//                 pointHitRadius: 50,
+//                 pointBorderWidth: 2,
+//                 data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
+//             }],
+//         },
+//         options: {
+//             scales: {
+//                 xAxes: [{
+//                     time: {
+//                         unit: 'date'
+//                     },
+//                     gridLines: {
+//                         display: false
+//                     },
+//                     ticks: {
+//                         maxTicksLimit: 7
+//                     }
+//                 }],
+//                 yAxes: [{
+//                     ticks: {
+//                         min: 0,
+//                         max: 40000,
+//                         maxTicksLimit: 5
+//                     },
+//                     gridLines: {
+//                         color: "rgba(0, 0, 0, .125)",
+//                     }
+//                 }],
+//             },
+//             legend: {
+//                 display: false
+//             }
+//         }
+//     });
+//     $.ajax({
+//         type: "GET",
+//         data: {
+//             'keywords': search,
+//             'serviceName': serviceName,
+//             'numberST': numberST,
+//             'numberSupply': numberSupply,
+//         },
+//         url: "{{ route('admins.numbers.getMore') }}" + "?page=" + page,
+//         success: function(data) {
+//             $('#pagination-ajax').html(data);
+//         }
+//     });
+// }
+
+$(document).ready(function() {
+    $(document).on('click', '.day-status .option-item', function(event) {
+        event.preventDefault();
+
+        var day_status = $(this).html();
+
+        var ctx = document.getElementById("myAreaChart");
+
+        // var myLineChart = new Chart(ctx, {
+        //     type: 'line',
+        //     data: {
+        //         labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+        //         datasets: [{
+        //             label: "Sessions",
+        //             lineTension: 0.3,
+        //             backgroundColor: "rgba(2,117,216,0.2)",
+        //             borderColor: "rgba(2,117,216,1)",
+        //             pointRadius: 5,
+        //             pointBackgroundColor: "rgba(2,117,216,1)",
+        //             pointBorderColor: "rgba(255,255,255,0.8)",
+        //             pointHoverRadius: 5,
+        //             pointHoverBackgroundColor: "rgba(2,117,216,1)",
+        //             pointHitRadius: 50,
+        //             pointBorderWidth: 2,
+        //             data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
+        //         }],
+        //     },
+        //     options: {
+        //         scales: {
+        //             xAxes: [{
+        //                 time: {
+        //                     unit: 'date'
+        //                 },
+        //                 gridLines: {
+        //                     display: false
+        //                 },
+        //                 ticks: {
+        //                     maxTicksLimit: 7
+        //                 }
+        //             }],
+        //             yAxes: [{
+        //                 ticks: {
+        //                     min: 0,
+        //                     max: 40000,
+        //                     maxTicksLimit: 5
+        //                 },
+        //                 gridLines: {
+        //                     color: "rgba(0, 0, 0, .125)",
+        //                 }
+        //             }],
+        //         },
+        //         legend: {
+        //             display: false
+        //         }
+        //     }
+        // });
+        var request = $.ajax({
+            method: 'GET',
+            url: '/admins/getNumberChartData' + '?day_status=' + day_status
+        });
+
+        request.done(function(response) {
+            console.log(response);
+            charts.createChart(response);
+        });
+
+        function createChart(response) {
+            console.log('oke');
+            var ctx = document.getElementById("myAreaChart");
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+                    datasets: [{
+                        label: "Sessions",
+                        lineTension: 0.3,
+                        backgroundColor: "rgba(2,117,216,0.2)",
+                        borderColor: "rgba(2,117,216,1)",
+                        pointRadius: 5,
+                        pointBackgroundColor: "rgba(2,117,216,1)",
+                        pointBorderColor: "rgba(255,255,255,0.8)",
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                        pointHitRadius: 50,
+                        pointBorderWidth: 2,
+                        data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
+                    }],
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            time: {
+                                unit: 'date'
+                            },
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: {
+                                maxTicksLimit: 7
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                min: 0,
+                                max: 40000,
+                                maxTicksLimit: 5
+                            },
+                            gridLines: {
+                                color: "rgba(0, 0, 0, .125)",
+                            }
+                        }],
+                    },
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+        }
+    });
+});
+
+function a(day_status) {
+    var ctx = document.getElementById("myAreaChart");
+
+    // var myLineChart = new Chart(ctx, {
+    //     type: 'line',
+    //     data: {
+    //         labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+    //         datasets: [{
+    //             label: "Sessions",
+    //             lineTension: 0.3,
+    //             backgroundColor: "rgba(2,117,216,0.2)",
+    //             borderColor: "rgba(2,117,216,1)",
+    //             pointRadius: 5,
+    //             pointBackgroundColor: "rgba(2,117,216,1)",
+    //             pointBorderColor: "rgba(255,255,255,0.8)",
+    //             pointHoverRadius: 5,
+    //             pointHoverBackgroundColor: "rgba(2,117,216,1)",
+    //             pointHitRadius: 50,
+    //             pointBorderWidth: 2,
+    //             data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
+    //         }],
+    //     },
+    //     options: {
+    //         scales: {
+    //             xAxes: [{
+    //                 time: {
+    //                     unit: 'date'
+    //                 },
+    //                 gridLines: {
+    //                     display: false
+    //                 },
+    //                 ticks: {
+    //                     maxTicksLimit: 7
+    //                 }
+    //             }],
+    //             yAxes: [{
+    //                 ticks: {
+    //                     min: 0,
+    //                     max: 40000,
+    //                     maxTicksLimit: 5
+    //                 },
+    //                 gridLines: {
+    //                     color: "rgba(0, 0, 0, .125)",
+    //                 }
+    //             }],
+    //         },
+    //         legend: {
+    //             display: false
+    //         }
+    //     }
+    // });
+    var request = $.ajax({
+        method: 'GET',
+        url: '/admins/getNumberChartData' + '?day_status=' + day_status
+    });
+
+    request.done(function(response) {
+        console.log(response);
+        charts.createChart(response);
+    });
+
+    function createChart(response) {
+        console.log('oke');
+        var ctx = document.getElementById("myAreaChart");
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["Mar 1", "Mar 2", "Mar 3", "Mar 4", "Mar 5", "Mar 6", "Mar 7", "Mar 8", "Mar 9", "Mar 10", "Mar 11", "Mar 12", "Mar 13"],
+                datasets: [{
+                    label: "Sessions",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(2,117,216,0.2)",
+                    borderColor: "rgba(2,117,216,1)",
+                    pointRadius: 5,
+                    pointBackgroundColor: "rgba(2,117,216,1)",
+                    pointBorderColor: "rgba(255,255,255,0.8)",
+                    pointHoverRadius: 5,
+                    pointHoverBackgroundColor: "rgba(2,117,216,1)",
+                    pointHitRadius: 50,
+                    pointBorderWidth: 2,
+                    data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],
+                }],
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        time: {
+                            unit: 'date'
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: {
+                            maxTicksLimit: 7
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 40000,
+                            maxTicksLimit: 5
+                        },
+                        gridLines: {
+                            color: "rgba(0, 0, 0, .125)",
+                        }
+                    }],
+                },
+                legend: {
+                    display: false
+                }
+            }
+        });
+    }
+    // $.ajax({
+    //     type: "GET",
+    //     data: {
+    //         'day-status': day_status,
+    //     },
+    //     url: "{{ route('admins.getNumberChartData') }}" + "?day_status=" + day_status,
+    //     success: function(data) {
+    //         $('#myAreaChart').html(data);
+    //     }
+    // });
+}
+
+
+
+// function getMore(page) {
+//     var search = $('#keywords').val();
+
+//     var serviceName = $('#serviceName').val();
+
+//     var numberST = $('#numberST').val();
+
+//     var numberSupply = $('#numberSupply').val();
+
+//     $.ajax({
+//         type: "GET",
+//         data: {
+//             'keywords': search,
+//             'serviceName': serviceName,
+//             'numberST': numberST,
+//             'numberSupply': numberSupply,
+//         },
+//         url: "{{ route('admins.numbers.getMore') }}" + "?page=" + page,
+//         success: function(data) {
+//             $('#pagination-ajax').html(data);
+//         }
+//     });
+// }

@@ -63,4 +63,16 @@ class device extends Model
     public function updatedevice($data, $id){
         return  DB::table($this->table)->where('deviceId', $id)->update($data);
     }
+
+    public function countDevices(){
+        $devices = DB::table($this->table)->count();
+
+        return $devices;
+    }
+
+    public function countDeviceST($st){
+        $devices = DB::table($this->table)->where('deviceActiveST', $st)->count();
+
+        return $devices;
+    }
 }

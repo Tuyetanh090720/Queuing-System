@@ -27,7 +27,7 @@
                         <div class="sb-nav-link-icon"><i class="fa fa-layer-group"></i></div>
                         Cấp số
                     </a>
-                    <a class="nav-link collapsed" href="/admins/reports">
+                    <a class="nav-link collapsed" href="/admins/reports/list">
                         <div class="sb-nav-link-icon"><i class="fa fa-chart-column"></i></div>
                         Báo cáo
                     </a>

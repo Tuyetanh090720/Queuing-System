@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admins\DashboardController;
 use App\Http\Controllers\admins\DeviceTypeController;
 use App\Http\Controllers\admins\DeviceController;
 use App\Http\Controllers\admins\ServiceController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\admins\ReportController;
 use App\Http\Controllers\admins\RightFunctionController;
 use App\Http\Controllers\admins\RightController;
 use App\Http\Controllers\admins\AccountController;
-use App\Http\Controllers\admins\RuleController;
 use App\Http\Controllers\Auth\LoginController;
 
 
@@ -27,9 +27,12 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 Route::prefix('admins')->name('admins.')->group(function() {
-    Route::get('/', function(){
-        return view('/admins/dashboard');
-    });
+
+    Route::get('/', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/createChart', [DashboardController::class, 'createChart'])->name('createChart');
+    Route::get('/chartDay', [DashboardController::class, 'chartDay'])->name('chartDay');
+    Route::get('/chartWeek', [DashboardController::class, 'chartWeek'])->name('chartWeek');
+    Route::get('/chartMonth', [DashboardController::class, 'chartMonth'])->name('chartMonth');
 
     Route::prefix('right_functions')->name('right_functions.')->group(function() {
 
@@ -165,11 +168,16 @@ Route::prefix('admins')->name('admins.')->group(function() {
 
         Route::post('/add', [NumberController::class, 'store'])->name('store');
 
+        Route::get('/popup', [NumberController::class, 'popup'])->name('popup');
+
         Route::get('/detail/{id}', [NumberController::class, 'detail'])->name('detail');
     });
 
-    Route::get('/reports', [NumberController::class, 'reports'])->name('reports');
+    Route::prefix('reports')->name('reports.')->group(function() {
+        Route::get('/list', [ReportController::class, 'index'])->name('list');
 
+        Route::get('/getMore', [ReportController::class, 'getMore'])->name('getMore');
+    });
 });
 
 Auth::routes();

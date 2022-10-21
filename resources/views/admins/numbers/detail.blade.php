@@ -9,41 +9,41 @@
                 <div class="col-lg-6 col-md-6 col-sm-12" style="padding-right:25px">
                     <div class="detail-group">
                         <label>Họ tên: </label>
-                        <span>KIO_01</span>
+                        <span>{{$numberDetail->customerName}}</span>
                     </div>
                     <div class="detail-group">
                         <label>Tên dịch vụ: </label>
-                        <span>KIO_01</span>
+                        <span>{{$numberDetail->serviceName}}</span>
                     </div>
                     <div class="detail-group">
                         <label>Số thứ tự: </label>
-                        <span>KIO_01</span>
+                        <span>{{$numberDetail->numberSerial}}</span>
                     </div>
                     <div class="detail-group">
                         <label>Thời gian cấp: </label>
-                        <span>KIO_01</span>
+                        <span>{{$numberDetail->created_at}}</span>
                     </div>
                     <div class="detail-group">
                         <label>Hạn sử dụng: </label>
-                        <span>KIO_01</span>
+                        <span>{{$numberDetail->numberExpiry}}</span>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12" style="padding-right:25px">
                     <div class="detail-group">
                         <label>Nguồn cấp: </label>
-                        <span>KIO_01</span>
+                        <span>{{$numberDetail->numberSupply}}</span>
                     </div>
                     <div class="detail-group">
                         <label>Trạng thái: </label>
-                        <span>KIO_01</span>
+                        <span>{{$numberDetail->numberST}}</span>
                     </div>
                     <div class="detail-group">
                         <label>Số điện thoại: </label>
-                        <span>KIO_01</span>
+                        <span>{{$numberDetail->customerPhone}}</span>
                     </div>
                     <div class="detail-group">
                         <label>Địa chỉ Email: </label>
-                        <span>KIO_01</span>
+                        <span>{{$numberDetail->customerEmail}}</span>
                     </div>
                 </div>
             </div>

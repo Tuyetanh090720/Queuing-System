@@ -55,16 +55,6 @@
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm 6">
                         <div class="form-group">
-                            <label>Chọn thời gian</label>
-                            <div class="filter-time">
-                                <input type="text" name="created_at" id="created_at" class="form-control"  placeholder="10/10/1995" required>
-                                <i class="fa fa-caret-right"></i>
-                                <input type="text" name="numberExpiry" id="numberExpiry" class="form-control"  placeholder="10/10/1995" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm 6">
-                        <div class="form-group">
                             <label>Từ khóa</label>
                             <div class="search">
                                 <input type="text" required="required" class="form-control" id="keywords" value="{{request()->keywords}}" placeholder="Từ khóa">
@@ -103,16 +93,6 @@
                             $value = $(this).val();
                             getMore();
                         });
-
-                        $('#created_at').on('keyup', function() {
-                            $value = $(this).val();
-                            getMore();
-                        });
-
-                        $('#numberExpiry').on('keyup', function() {
-                            $value = $(this).val();
-                            getMore();
-                        });
                     });
 
                     function getMore(page) {
@@ -124,10 +104,6 @@
 
                         var numberSupply = $('#numberSupply').val();
 
-                        var created_at = $('#created_at').val();
-
-                        var numberExpiry = $('#numberExpiry').val();
-
                         $.ajax({
                             type: "GET",
                             data: {
@@ -135,8 +111,6 @@
                                 'serviceName': serviceName,
                                 'numberST': numberST,
                                 'numberSupply': numberSupply,
-                                'created_at': created_at,
-                                'numberExpiry': numberExpiry,
                             },
                             url: "{{ route('admins.numbers.getMore') }}"+ "?page=" + page,
                             success:function(data) {
@@ -152,7 +126,7 @@
                 <a href="{{route('admins.numbers.add')}}">
                     <i class="fa fa-square-plus"></i>
                     <br/>
-                    Thêm thiết bị
+                    Cấp số
                 </a>
             </button>
         </div>

@@ -72,6 +72,18 @@ class service extends Model
     public function updateService($data, $id){
         return  DB::table($this->table)->where('serviceId', $id)->update($data);
     }
+
+    public function countServices(){
+        $devices = DB::table($this->table)->count();
+
+        return $devices;
+    }
+
+    public function countServiceST($st){
+        $devices = DB::table($this->table)->where('serviceActiveST', $st)->count();
+
+        return $devices;
+    }
 }
 
 

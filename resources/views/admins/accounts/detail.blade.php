@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label for="accountPw">Mật khẩu</label>
-                <input type="text" class="form-control" name="accountPw" value="{{$account->accountPw}}" id="accountPw" readonly>
+                <input type="text" class="form-control" name="password" value="{{$account->password}}" id="password" readonly>
             </div>
             <div class="form-group">
                 <label for="accountEmail">Email</label>

@@ -41,7 +41,7 @@
                             <a class="nav-link" href="/admins/right_functions/list">Quyền vai trò</a>
                             <a class="nav-link" href="/admins/rights/list">Quản lý vai trò</a>
                             <a class="nav-link" href="/admins/accounts/list">Quản lý tài khoản</a>
-                            <a class="nav-link" href="/admins/accounts/diary">Nhật ký người dùng</a>
+                            <a class="nav-link" href="/admins/diary/list">Nhật ký người dùng</a>
                         </nav>
                     </div>
                 </div>

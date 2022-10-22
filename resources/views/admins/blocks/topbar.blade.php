@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-1 col-md-1">
             <div class="navbar-img">
-                <a href="/admins/accounts/detail/1"><img src="{{asset('assets/admins/img/avatar.jpg')}}" alt=""></a>
+                <a href="/admins/accounts/detail"><img src="{{asset('assets/admins/img/avatar.jpg')}}" alt=""></a>
             </div>
         </div>
         <div class="col-lg-8 col-md-8">
@@ -27,26 +27,30 @@
     <div class="card-noti-title">
         <span>Thông báo</span>
     </div>
-    <div class="cards-noti scrollbar"  id="scroll-style">
+    <div class="cards-noti scrollbar"  id="scroll-style" >
         <div class="card-noti">
-            <span class="card-user">Người dùng: Nguyễn Thị Thùy Dung</span><br/>
-            <span class="card-time">Thời gian nhận số: 12h20 ngày 30/11/2021</span>
+            <span class="card-user">Khách hàng: Ngo Thi Tuyet Anh</span><br/>
+            <span class="card-time">Thời gian nhận số: 2022/10/22</span>
         </div>
         <div class="card-noti">
-            <span class="card-user">Người dùng: Nguyễn Thị Thùy Dung</span><br/>
-            <span class="card-time">Thời gian nhận số: 12h20 ngày 30/11/2021</span>
+            <span class="card-user">Khách hàng: Ngo Thi Tuyet Anh</span><br/>
+            <span class="card-time">Thời gian nhận số: 2022/10/22</span>
         </div>
         <div class="card-noti">
-            <span class="card-user">Người dùng: Nguyễn Thị Thùy Dung</span><br/>
-            <span class="card-time">Thời gian nhận số: 12h20 ngày 30/11/2021</span>
+            <span class="card-user">Khách hàng: Ngo Thi Tuyet Anh</span><br/>
+            <span class="card-time">Thời gian nhận số: 2022/10/22</span>
         </div>
         <div class="card-noti">
-            <span class="card-user">Người dùng: Nguyễn Thị Thùy Dung</span><br/>
-            <span class="card-time">Thời gian nhận số: 12h20 ngày 30/11/2021</span>
+            <span class="card-user">Khách hàng: Ngo Thi Tuyet Anh</span><br/>
+            <span class="card-time">Thời gian nhận số: 2022/10/22</span>
         </div>
         <div class="card-noti">
-            <span class="card-user">Người dùng: Nguyễn Thị Thùy Dung</span><br/>
-            <span class="card-time">Thời gian nhận số: 12h20 ngày 30/11/2021</span>
+            <span class="card-user">Khách hàng: Ngo Thi Tuyet Anh</span><br/>
+            <span class="card-time">Thời gian nhận số: 2022/10/22</span>
+        </div>
+        <div class="card-noti">
+            <span class="card-user">Khách hàng: Ngo Thi Tuyet Anh</span><br/>
+            <span class="card-time">Thời gian nhận số: 2022/10/22</span>
         </div>
     </div>
 </div>

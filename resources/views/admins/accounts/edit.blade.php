@@ -52,7 +52,7 @@
                             <div class="dropdown">
                                 <div class="form-group">
                                     <label for="accountActiveST">Trạng thái hoạt động</label>
-                                    <input type="text" id="accountActiveST" placeholder="Tất cả" value="{{$account->accountActiveST}}" readonly>
+                                    <input type="text" name="accountActiveST" id="accountActiveST" placeholder="Tất cả" value="{{$account->accountActiveST}}" readonly>
                                     <div class="option accountActiveST">
                                         <div class="option-item active" onclick="chooseOption('accountActiveST', 0)">Hoạt động</div>
                                         <div class="option-item" onclick="chooseOption('accountActiveST', 1)">Ngưng hoạt động</div>

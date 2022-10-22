@@ -22,23 +22,23 @@
                     <div class="title-forget">
                         <span>Đặt lại mật khẩu</span>
                     </div>
-                    <form action="">
+                    <form method="POST" action="{{ route('forget.password.post') }}">
                         @csrf
                         <div class="form-group">
-                            <label for="email">Vui lòng nhập email để đặt lại mật khẩu của bạn *</label>
-                            <input type="text" class="form-control" name="email" id="email" required>
+                            <label for="accountEmail">Vui lòng nhập email để đặt lại mật khẩu của bạn *</label>
+                            <input type="email" class="form-control" name="accountEmail" id="accountEmail" required>
                         </div>
                         <div class="error-block">
-                            @error('email')
+                            @error('accountEmail')
                                 <span class="error"> *{{$message}}</span>
                             @enderror
                         </div>
                         <div class="input-group-btn">
                             <button class="btn btn-cancel">
-                                <a href="">Hủy</a>
+                                <a href="/">Hủy</a>
                             </button>
-                            <button class="btn btn-login">
-                                <a href="">Tiếp tục</a>
+                            <button class="btn btn-login" type="submit">
+                                Tiếp tục
                             </button>
                         </div>
                     </form>

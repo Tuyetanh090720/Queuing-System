@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\right;
 use App\Models\rightFunction;
 use App\Models\rightDetail;
+use App\Models\account;
+use Spatie\Activitylog\Models\Activity;
 
 
 class RightController extends Controller
 {
+
     const _PER_PAGE = 3;
     public function index()
     {
@@ -92,6 +95,12 @@ class RightController extends Controller
             $data = array_merge(['rightId'=>$rightId], ['rightFunctionId'=>$item], $arrdate);
             $rightDetails->insertRightDetail($data);
         }
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($rights)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã thêm vai trò '.$rightId );
 
         return redirect()->route('admins.rights.list');
     }
@@ -198,6 +207,13 @@ class RightController extends Controller
                 $i++;
             }
         }
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($rights)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã cập nhật vai trò '.$id );
+
         return redirect()->route('admins.rights.list');
     }
 
@@ -206,6 +222,12 @@ class RightController extends Controller
         $rights = new right();
 
         $delete = $rights->deleteRight($id);
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($rights)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã xóa vai trò '.$id );
 
         return redirect()->route('admins.rights.list');
     }

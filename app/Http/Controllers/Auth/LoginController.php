@@ -7,49 +7,41 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
-
     public function showLogin(){
-        return view('auth.login');
+        $message = '';
+        return view('auth.login', compact('message'));
     }
 
     public function login(Request $rq){
-        $credentials = $rq->only(['accountLogin', 'accountPw']);
-        if (Auth::attempt(['accountLogin' => $rq->accountLogin, 'accountPw' => $rq->accountPw])) {
+        $arr = [
+            'accountLogin' => $rq->accountLogin,
+            'password' => $rq->password,
+        ];
+
+        if (Auth::guard('accounts')->attempt($arr)) {
+            $accountId = Auth::guard('accounts')->user()->accountId;
+
+            $rq->session()->put('accountId', $accountId);
+
             return redirect()->route('admins.dashboard');
-        } else {
-            return redirect()->back()->withInput();
         }
+        else {
+            $message = 'Nhập sai mật khẩu hoặc tên đăng nhập';
+            return view('auth.login', compact('message'));
+        }
+    }
+
+    public function logout(Request $rq){
+        Auth::logout();
+        $rq->session()->invalidate();
+        $rq->session()->regenerateToken();
+        return redirect('/');
     }
 }

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\admins;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\rightFunction;
+use Illuminate\Support\Facades\Auth;
 
 class RightFunctionController extends Controller
 {
+
     public function index()
     {
         $rightFunctions = new rightFunction();
@@ -31,7 +33,13 @@ class RightFunctionController extends Controller
 
         $data = array_merge($rq->only('rightFunctionName', 'rightFunctionType'), $arrdate);
 
-        $rightFunctionsList = $rightFunctions->insertRightFunction($data);
+        $rightFunctionId = $rightFunctions->insertRightFunction($data);
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($rightFunctions)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã thêm phân quyền tài khoản '.$rightFunctionId );
 
         return redirect()->route('admins.right_functions.list');
     }
@@ -56,6 +64,12 @@ class RightFunctionController extends Controller
 
         $updateorder = $rightFunctions->updateRightFunction($data, $id);
 
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($rightFunctions)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã cập nhật phân quyền tài khoản '.$id );
+
         return redirect()->route('admins.right_functions.list');
     }
 
@@ -64,6 +78,13 @@ class RightFunctionController extends Controller
         $rightFunctions = new rightFunction();
 
         $delete = $rightFunctions->deleteRightFunction($id);
+
+        $accountId = session()->get('accountId');
+
+        activity()
+        ->performedOn($rightFunctions)
+        ->createdAt(now()->subDays(10))
+        ->log('Người dùng '.$accountId.' đã xóa phân quyền tài khoản '.$id );
 
         return redirect()->route('admins.right_functions.list');
     }

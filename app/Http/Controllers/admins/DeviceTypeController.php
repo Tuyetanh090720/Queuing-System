@@ -8,6 +8,7 @@ use App\Models\deviceType;
 
 class DeviceTypeController extends Controller
 {
+
     const _PER_PAGE = 3;
     public function index()
     {
@@ -41,7 +42,13 @@ class DeviceTypeController extends Controller
 
         $data = array_merge($rq->only('deviceTypeName'), $arrdate);
 
-        $deviceTypeList = $deviceTypes->insertDeviceType($data);
+        $deviceTypeId = $deviceTypes->insertDeviceType($data);
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($deviceTypes)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã thêm loại thiết bị '.$deviceTypeId );
 
         return redirect()->route('admins.device_types.list');
     }
@@ -66,6 +73,13 @@ class DeviceTypeController extends Controller
 
         $updateDeviceType = $deviceTypes->updateDeviceType($data, $id);
 
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($deviceTypes)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã cập nhật loại thiết bị '.$id );
+
+
         return redirect()->route('admins.device_types.list');
     }
 
@@ -74,6 +88,12 @@ class DeviceTypeController extends Controller
         $deviceTypes = new deviceType();
 
         $delete = $deviceTypes->deleteDeviceType($id);
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($deviceTypes)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã xóa loại thiết bị '.$id );
 
         return redirect()->route('admins.device_types.list');
     }

@@ -10112,6 +10112,7 @@ body {
 
 .dashboard-chart .report-chart {
     position: relative;
+    display: block;
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, 0.125);
@@ -10142,6 +10143,21 @@ body {
     font-size: 16px;
     color: #282739;
     margin-right: 20px;
+}
+
+.chartDay {
+    position: relative;
+    display: block;
+}
+
+.chartWeek {
+    position: relative;
+    display: block;
+}
+
+.chartMonth {
+    position: relative;
+    display: block;
 }
 
 .day-select {

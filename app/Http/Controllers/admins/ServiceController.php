@@ -9,6 +9,7 @@ use App\Models\service;
 
 class ServiceController extends Controller
 {
+
     const _PER_PAGE = 3;
 
     public function index()
@@ -84,7 +85,13 @@ class ServiceController extends Controller
 
         $data = array_merge($rq->only('serviceCode', 'serviceName', 'serviceDescription', 'serviceActiveST'), ['serviceRuleNumber'=>$serviceRuleNumber], $arrdate);
 
-        $services->insertService($data);
+        $serviceId = $services->insertService($data);
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($services)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã thêm dịch vụ '.$serviceId );
 
         return redirect()->route('admins.services.list');
     }
@@ -110,6 +117,11 @@ class ServiceController extends Controller
         $data = array_merge($rq->only('serviceCode', 'serviceName', 'serviceDescription', 'serviceActiveST', 'created_at'), ['serviceRuleNumber'=>$serviceRuleNumber], ['updated_at' => date('Y-m-d')]);
 
         $services->updateService($data, $id);
+
+        activity()
+            ->performedOn($services)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã cập nhật dịch vụ '.$id );
 
         return redirect()->route('admins.services.list');
     }

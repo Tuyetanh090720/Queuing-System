@@ -88,43 +88,31 @@
                     <div class="dropdown day-select" id="dropdown">
                         <input type="text" id="day_status" placeholder="Ngày" readonly>
                         <div class="option day_status">
-                            <a href="/admins?day_status=Ngay"><div class="option-item active" onclick="chooseOption('day_status', 0)">Ngay</div></a>
-                            <a href="/admins?day_status=Tuan"><div class="option-item" onclick="chooseOption('day_status', 1)">Tuan</div></a>
-                            <a href="/admins?day_status=Thang"><div class="option-item" onclick="chooseOption('day_status', 2)">Thang</div></a>
-                            {{-- <div class="option-item active" onclick="chooseOption('day_status', 0)">Ngày</div>
+                            <div class="option-item active " onclick="chooseOption('day_status', 0)">Ngày</div>
                             <div class="option-item" onclick="chooseOption('day_status', 1)">Tuần</div>
-                            <div class="option-item" onclick="chooseOption('day_status', 2)">Tháng</div> --}}
+                            <div class="option-item" onclick="chooseOption('day_status', 2)">Tháng</div>
                         </div>
                     </div>
                     <span>Xem theo</span>
                 </div>
             </div>
-            <span>Tháng 11/2021</span>
-            <div class="chart" id="chart">
-                @include ('admins.dashboards.chartDay')
-                <script>
-                    $(document).ready(function() {
-                        $(document).on('click', '.day_status a', function(event) {
-                            event.preventDefault();
-                            var day_status = $(this).attr('href').split('day_status=')[1];
-                            createChart(day_status);
-                            console.log(day_status);
-                        });
-                    });
+            <span>Tháng {{$month}}/{{$year}}</span>
+            <div class="chart chartDay" id="chartDay">
+                {!! $NumberChartDay->container() !!}
+                <script src=https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js charset=utf-8></script>
+                {!! $NumberChartDay->script() !!}
+            </div>
 
-                    function createChart(day_status) {
-                        $.ajax({
-                            type: "GET",
-                            data: {
-                                'day_status':day_status,
-                            },
-                            url: "{{ route('admins.createChart') }}",
-                            success:function(data) {
-                                $('#chart').html(data);
-                            }
-                        });
-                    }
-                </script>
+            <div class="chart chartWeek" id="chartWeek">
+                {!! $NumberChartWeek->container() !!}
+                <script src=https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js charset=utf-8></script>
+                {!! $NumberChartWeek->script() !!}
+            </div>
+
+            <div class="chart chartMonth" id="chartMonth">
+                {!! $NumberChartMonth->container() !!}
+                <script src=https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js charset=utf-8></script>
+                {!! $NumberChartMonth->script() !!}
             </div>
         </div>
     </div>
@@ -132,9 +120,9 @@
         <span class="title-overview">Tổng quan</span>
         <div class="device overview-items ">
             <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="big-circle" id="big-circle" data-percent="90" class="big dark blue">
+                <div class="big-circle" id="big-circle" class="big dark blue" style="border-color: #FF7506">
                     <div class="small-circle">
-                        <span>90%</span>
+                        <i class="fa fa-desktop"></i>
                     </div>
                 </div>
             </div>
@@ -154,9 +142,9 @@
         </div>
         <div class="service overview-items">
             <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="big-circle">
+                <div class="big-circle" style="border-color: #4277FF">
                     <div class="small-circle">
-                        <span>90%</span>
+                        <i class="fa fa-comments"></i>
                     </div>
                 </div>
             </div>
@@ -176,9 +164,9 @@
         </div>
         <div class="progression overview-items">
             <div class="col-lg-3 col-md-3 col-sm-3">
-                <div class="big-circle">
+                <div class="big-circle" style="border-color: #35C75A">
                     <div class="small-circle">
-                        <span>90%</span>
+                        <i class="fa fa-layer-group"></i>
                     </div>
                 </div>
             </div>
@@ -228,4 +216,5 @@
 </div>
 <script src='{{asset('assets/admins/js/calendar.js')}}'></script>
 <script src='{{asset('assets/admins/js/option.js')}}'></script>
+<script src='{{asset('assets/admins/js/create-charts.js')}}'></script>
 @endsection

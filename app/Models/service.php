@@ -14,7 +14,7 @@ class service extends Model
     protected $table = 'services';
 
     public function insertService($data){
-        return DB::table($this->table)->insert($data);
+        return DB::table($this->table)->insertGetId($data);
     }
 
     public function getAllServices($perPage, $keywords, $serviceActiveST){

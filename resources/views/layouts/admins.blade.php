@@ -55,10 +55,12 @@
         @yield('right-edit')
 
         @yield('account-list')
-        @yield('account-diary')
         @yield('account-add')
         @yield('account-detail')
         @yield('account-edit')
+
+        @yield('diary')
+
 
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

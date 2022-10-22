@@ -12,7 +12,7 @@ class deviceType extends Model
     protected $table = 'device_types';
 
     public function insertDeviceType($data){
-        return DB::table($this->table)->insert($data);
+        return DB::table($this->table)->insertGetId($data);
     }
 
     public function getAllDeviceTypes($perPage){

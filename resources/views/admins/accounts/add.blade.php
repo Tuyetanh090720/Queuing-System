@@ -41,8 +41,8 @@
                             <input type="text" class="form-control" name="accountLogin" value="{{ old('accountLogin') }}" autocomplete="accountLogin" required>
                         </div>
                         <div class="form-group">
-                            <label for="accountPw">Mật khẩu</label>
-                            <input type="text" class="form-control" name="accountPw" value="{{ old('accountPw') }}" autocomplete="accountPw" required>
+                            <label for="password">Mật khẩu</label>
+                            <input type="text" class="form-control" name="password" value="{{ old('password') }}" autocomplete="password" required>
                         </div>
                         <div class="form-group">
                             <label for="password-confirm">Nhập lại mật khẩu</label>

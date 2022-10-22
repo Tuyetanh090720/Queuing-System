@@ -7,29 +7,18 @@ use Illuminate\Http\Request;
 use App\Models\account;
 use App\Models\right;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+
 class AccountController extends Controller
 {
     const _PER_PAGE = 3;
-    // public function showLogin(){
-    //     return view('auth.login');
-    // }
 
-    // public function login(Request $rq){
 
-    //     dd(Auth::attempt(['accountLogin' => $rq->accountLogin]));
 
-    //     if (Auth::attempt(['accountLogin' => $rq->accountLogin, 'accountPw' => $rq->password])) {
-    //         dd($rq->accountLogin);
-    //         return redirect()->route('admins.dashboard');
-    //     } else {
-    //         dd($rq->accountLogin);
-    //     }
-    // }
     public function index()
     {
+
         $accounts = new account();
         $accountsList = $accounts->getAllAccounts(self::_PER_PAGE, '', '');
 
@@ -48,11 +37,6 @@ class AccountController extends Controller
             return view('admins.accounts.table', compact('accountsList'))->render();
         }
     }
-
-    // public function diary()
-    // {
-    //     return view('admins.accounts.diary');
-    // }
 
     public function add()
     {
@@ -76,20 +60,30 @@ class AccountController extends Controller
             }
         };
 
+        $password = HASH::make($rq->password);
 
         $arrdate = ['created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d')];
 
-        $data = array_merge($rq->only('accountName','accountLogin', 'accountPw', 'accountPhone', 'accountEmail', 'accountActiveST'), ['rightId' => $rightId], $arrdate);
+        $data = array_merge($rq->only('accountName','accountLogin', 'accountPhone', 'accountEmail', 'accountActiveST'), ['password'=>$password], ['rightId' => $rightId], $arrdate);
 
-        $insert = $accounts->insertAccount($data);
+        $id = $accounts->insertAccount($data);
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($accounts)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã thêm tài khoản '.$id );
 
         return redirect()->route('admins.accounts.list');
     }
 
-    public function detail($id)
+    public function detail()
     {
         $accounts = new account();
-        $account = $accounts->getAccountDetail($id);
+
+        $accountId = session()->get('accountId');
+
+        $account = $accounts->getAccountDetail($accountId);
 
         return view('admins.accounts.detail', compact('account'));
     }
@@ -123,9 +117,15 @@ class AccountController extends Controller
 
         $arrdate = ['created_at' => date('Y-m-d'), 'updated_at' => date('Y-m-d')];
 
-        $data = array_merge($rq->only('accountName','accountLogin', 'accountPw', 'accountPhone', 'accountEmail', 'accountActiveST'), ['rightId' => $rightId], $arrdate);
+        $data = array_merge($rq->only('accountName','accountLogin', 'password', 'accountPhone', 'accountEmail', 'accountActiveST'), ['rightId' => $rightId], $arrdate);
 
         $update = $accounts->updateAccount($data, $id);
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($accounts)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã cập nhật tài khoản '.$id );
 
         return redirect()->route('admins.accounts.list');
     }

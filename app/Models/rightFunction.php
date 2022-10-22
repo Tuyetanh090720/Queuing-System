@@ -13,7 +13,7 @@ class rightFunction extends Model
     protected $table = 'right_functions';
 
     public function insertRightFunction($data){
-        return DB::table($this->table)->insert($data);
+        return DB::table($this->table)->insertGetId($data);
     }
 
     public function getAllRightFunctions(){

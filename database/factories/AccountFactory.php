@@ -16,7 +16,7 @@ class AccountFactory extends Factory
         return [
             'accountName'  => $this->faker->name(),
             'accountLogin' => $this->faker->username(),
-            'accountPw' => $this->faker->password(),
+            'password' => bcrypt('matkhau'),
             'accountPhone' => $this->faker->phoneNumber(),
             'accountEmail' => $this->faker->email(),
             'accountActiveST' => $this->faker->sentence(3, true),

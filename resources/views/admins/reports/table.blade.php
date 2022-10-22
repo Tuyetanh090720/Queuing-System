@@ -4,7 +4,7 @@
             <th>Số thứ tự</th>
             <th>Tên dịch vụ</th>
             <th>Thời gian cấp</th>
-            <th>Tình trạng</th>
+            <th>Trạng thái</th>
             <th>Nguồn cấp</th>
         </tr>
     </thead>
@@ -21,7 +21,7 @@
                     @if ($item->numberST == 'Đang thực hiện')
                         <td><i class="fa fa-circle" style="color: #5490EB"></i> Đang thực hiện</td>
                     @else
-                        <td><i class="fa fa-circle" style="color: #6C7585"></i> Vắng</td>
+                        <td><i class="fa fa-circle" style="color: #6C7585"></i> Bỏ qua</td>
                     @endif
                     <td>{{$item->numberSupply}}</td>
                 </tr>

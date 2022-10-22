@@ -11,6 +11,7 @@ use App\Models\customer;
 
 class NumberController extends Controller
 {
+
     const _PER_PAGE = 3;
 
     public function index()
@@ -90,6 +91,14 @@ class NumberController extends Controller
 
         $numberId = $numbers->insertGetId($dataN);
 
+        $numberSerial = $numbers->getNumberDetail($numberId);
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($numbers)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã cấp số '.$numberSerial );
+
         return redirect()->route('admins.numbers.popup');
     }
 
@@ -101,5 +110,4 @@ class NumberController extends Controller
 
         return view('admins.numbers.detail', compact('numberDetail'));
     }
-
 }

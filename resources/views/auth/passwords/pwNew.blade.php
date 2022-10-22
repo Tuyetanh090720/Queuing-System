@@ -22,29 +22,29 @@
                     <div class="title-forget">
                         <span>Đặt lại mật khẩu mới</span>
                     </div>
-                    <form action="">
+                    <form action="{{ route('reset.password.post') }}" method="POST">
                         @csrf
+                        <input type="hidden" name="token" value="{{ $token }}">
+                        <div class="form-group">
+                            <label for="accountEmail">Email</label>
+                            <input type="text" class="form-control" name="accountEmail" id="accountEmail" required>
+                        </div>
                         <div class="form-group">
                             <label for="password">Mật khẩu</label>
                             <input type="text" class="form-control" name="password" id="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password_confirmation">Nhập lại mật khẩu </label>
+                            <input type="text" class="form-control" name="password_confirmation" id="password_confirmation" required>
                         </div>
                         <div class="error-block">
                             @error('password')
                                 <span class="error"> *{{$message}}</span>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="passwordNew">Nhập lại mật khẩu </label>
-                            <input type="text" class="form-control" name="passwordNew" id="passwordNewv" required>
-                        </div>
-                        <div class="error-block">
-                            @error('passwordNew')
-                                <span class="error"> *{{$message}}</span>
-                            @enderror
-                        </div>
                         <div class="input-group-btn">
-                            <button class="btn btn-login">
-                                <a href="">Xác nhận</a>
+                            <button class="btn btn-login" type="submit">
+                                Xác nhận
                             </button>
                         </div>
                     </form>

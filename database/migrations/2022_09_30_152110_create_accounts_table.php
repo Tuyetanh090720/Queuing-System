@@ -16,13 +16,15 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('accountId');
             $table->string('accountName');
-            $table->string('accountLogin');
-            $table->string('accountPw');
+            $table->string('accountLogin')->unique();
+            $table->string('password');
             $table->string('accountPhone');
-            $table->string('accountEmail');
+            $table->string('accountEmail')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('accountActiveST');
             $table->unsignedInteger('rightId');
             $table->foreign('rightId')->references('rightId')->on('rights');
+            $table->rememberToken();
             $table->date('created_at');
             $table->date('updated_at');
         });

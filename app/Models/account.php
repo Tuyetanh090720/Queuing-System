@@ -4,15 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
 
-class account extends Model
+class account extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
+
     protected $table = 'accounts';
 
+    protected $fillable = [
+        'accountLogin', 'accountPw',
+    ];
+
+    protected $hidden = [
+        'accountPw', 'remember_token',
+    ];
+
     public function insertAccount($data){
-        return DB::table($this->table)->insert($data);
+        return DB::table($this->table)->insertGetId($data);
     }
 
     public function getAllAccounts($perPage, $keywords, $accountActiveST){
@@ -25,10 +37,10 @@ class account extends Model
 
         if($accountActiveST && !empty($accountActiveST)) {
             if($accountActiveST == "Tất cả"){
-                $devices = $devices;
+                $accounts = $accounts;
             }
             else{
-                $devices = $devices->where('accounts.accountActiveST', $accountActiveST);
+                $accounts = $accounts->where('accounts.accountActiveST', $accountActiveST);
             }
         }
 
@@ -44,5 +56,9 @@ class account extends Model
 
     public function updateAccount($data, $id){
         return  DB::table($this->table)->where('accountId', $id)->update($data);
+    }
+
+    public function checkMail($email){
+        return  DB::table($this->table)->where('accountEmail', $email)->exists();
     }
 }

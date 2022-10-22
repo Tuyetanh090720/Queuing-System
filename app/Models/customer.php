@@ -15,4 +15,14 @@ class customer extends Model
         return DB::table($this->table)->insertGetId($data);
     }
 
+
+    public function getAllCustomers(){
+        $customers =  DB::table($this->table)->leftjoin('numbers', 'numbers.customerId', '=', 'customers.customerId')
+                                            ->orderBy('created_at', 'desc')->get();
+
+        return $customers;
+    }
+
+
+
 }

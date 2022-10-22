@@ -8,6 +8,7 @@ use App\Models\number;
 
 class ReportController extends Controller
 {
+
     const _PER_PAGE = 3;
 
     public function index()
@@ -32,14 +33,4 @@ class ReportController extends Controller
         }
     }
 
-    public function download($flag=null, $quantity=null, $orderId=null, $customerEmail=null){
-        $pdf = \App::make('dompdf.wrapper');
-        $orderDetail = new orderDetail();
-
-        for($i = 0; $i < $quantity; $i++){
-            $orderDetailList = $orderDetail->getOrderDetails($orderId);
-        }
-
-        $a = view('clients.ticket', compact('quantity', 'orderDetailList', 'orderId', 'customerEmail'));
-    }
 }

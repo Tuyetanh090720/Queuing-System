@@ -94,6 +94,7 @@ class DeviceController extends Controller
             };
         }
 
+
         $deviceTypeId = $deviceTypes->getDeviceTypeName($rq->deviceTypeName)->deviceTypeId;
 
         $arrdate = ['updated_at' => date('Y-m-d'), 'created_at' => date('Y-m-d')];
@@ -105,6 +106,12 @@ class DeviceController extends Controller
             $dataDD = array_merge(['deviceId'=>$deviceId], ['serviceId'=>$serviceIdList[$i]], $arrdate);
             $insertDeviceDetail = $deviceDetails->insertDeviceDetail($dataDD);
         }
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($devices)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã thêm thiết bị '.$deviceId );
 
         return redirect()->route('admins.devices.list');
     }
@@ -206,6 +213,12 @@ class DeviceController extends Controller
                 $i++;
             }
         }
+
+        $accountId = session()->get('accountId');
+        activity()
+            ->performedOn($devices)
+            ->createdAt(now()->subDays(10))
+            ->log('Người dùng '.$accountId.' đã cập nhật thiết bị '.$id );
 
         return redirect()->route('admins.devices.list');
     }

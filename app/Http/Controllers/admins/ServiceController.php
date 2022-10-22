@@ -118,6 +118,7 @@ class ServiceController extends Controller
 
         $services->updateService($data, $id);
 
+        $accountId = session()->get('accountId');
         activity()
             ->performedOn($services)
             ->createdAt(now()->subDays(10))

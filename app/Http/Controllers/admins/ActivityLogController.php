@@ -47,6 +47,7 @@ class ActivityLogController extends Controller
 
                 $accountLogin[] = $accounts->getAccountDetail($accountId)->accountLogin;
             }
+
             $j = 0;
 
             return view('admins.diary.table', compact('activityLogsList', 'accountLogin', 'j'))->render();

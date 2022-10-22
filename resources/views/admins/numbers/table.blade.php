@@ -25,7 +25,8 @@
                     @endif
                     @if ($item->numberST == 'Đang thực hiện')
                         <td><i class="fa fa-circle" style="color: #5490EB"></i> Đang thực hiện</td>
-                    @else
+                    @endif
+                    @if ($item->numberST == 'Bỏ qua')
                         <td><i class="fa fa-circle" style="color: #6C7585"></i> Bỏ qua</td>
                     @endif
                     <td>{{$item->numberSupply}}</td>

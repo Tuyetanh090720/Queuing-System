@@ -80,7 +80,7 @@ class DashboardController extends Controller
 
         $NumberChartWeek = new NumberChart;
         $NumberChartWeek->labels(["Tuần 1", "Tuần 2", "Tuần 3", "Tuần 4"]);
-        $NumberChartWeek->dataset('Users by trimester', 'line', $dataWeek)
+        $NumberChartWeek->dataset('Cấp số', 'line', $dataWeek)
                         ->color("#5185F7")
                         ->backgroundcolor("#CEDDFF");
 
@@ -93,7 +93,7 @@ class DashboardController extends Controller
 
         $NumberChartMonth = new NumberChart;
         $NumberChartMonth->labels($labelMonth);
-        $NumberChartMonth->dataset('Users by trimester', 'line', $dataMonth)
+        $NumberChartMonth->dataset('Cấp số', 'line', $dataMonth)
                         ->color("#5185F7")
                         ->backgroundcolor("#CEDDFF");
 

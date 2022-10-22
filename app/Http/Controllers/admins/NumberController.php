@@ -91,15 +91,16 @@ class NumberController extends Controller
 
         $numberId = $numbers->insertGetId($dataN);
 
-        $numberSerial = $numbers->getNumberDetail($numberId);
+        $numberNew = $numbers->getNumberDetail($numberId);
+        $Serial = $numberNew->numberSerial;
 
         $accountId = session()->get('accountId');
         activity()
             ->performedOn($numbers)
             ->createdAt(now()->subDays(10))
-            ->log('Người dùng '.$accountId.' đã cấp số '.$numberSerial );
+            ->log('Người dùng '.$accountId.' đã cấp số '.$Serial );
 
-        return redirect()->route('admins.numbers.popup');
+        return view('admins.numbers.popup', compact('numberNew'));
     }
 
     public function detail($id)

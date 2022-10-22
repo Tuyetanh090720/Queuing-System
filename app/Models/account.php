@@ -49,7 +49,7 @@ class account extends Authenticatable
 
     public function getAccountDetail($id){
         $accounts = DB::table($this->table)->join('rights', 'accounts.rightId', '=', 'rights.rightId');
-        $accounts = $accounts->where('accountId', $id)->first();
+        $accounts = $accounts->where('accounts.accountId', $id)->first();
 
         return $accounts;
     }

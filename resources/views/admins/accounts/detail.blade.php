@@ -23,7 +23,7 @@
                 <input type="text" class="form-control" name="accountPhone" value="{{$account->accountPhone}}" id="accountPhone" readonly>
             </div>
             <div class="form-group">
-                <label for="accountPw">Mật khẩu</label>
+                <label for="password">Mật khẩu</label>
                 <input type="text" class="form-control" name="password" value="{{$account->password}}" id="password" readonly>
             </div>
             <div class="form-group">

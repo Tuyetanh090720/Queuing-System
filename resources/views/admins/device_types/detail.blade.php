@@ -1,11 +1,11 @@
 @extends('layouts.admins')
 @section('device-detail')
 <div class="container-fluid">
-    <span class="title-page">Quản lý thiết bị</span>
+    <span class="title-page">Quản lý loại thiết bị</span>
     <div class="container-block">
         <div class="container-white">
             <div class="device-detail">
-                <span class="title-add">Thông tin thiết bị</span>
+                <span class="title-add">Thông tin loại thiết bị</span>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12" style="padding-right:25px">
                         <div class="detail-group">

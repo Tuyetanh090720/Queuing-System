@@ -1,7 +1,7 @@
 @extends('layouts.admins')
 @section('right-add')
 <div class="container-fluid">
-    <span class="title-page">Quản lý dịch vụ</span>
+    <span class="title-page">Quản lý vai trò</span>
     <div class="container-white">
         <div class="right-add">
             <span class="title-add">Thêm vai trò</span>

@@ -1,10 +1,10 @@
 @extends('layouts.admins')
 @section('right-function-add')
 <div class="container-fluid">
-    <span class="title-page">Quản lý dịch vụ</span>
+    <span class="title-page">Quản lý quyền vai trò</span>
     <div class="container-white">
         <div class="right-function-add">
-            <span class="title-add">Thêm vai trò</span>
+            <span class="title-add">Thêm quyền vai trò</span>
             <form action="/admins/right_functions/add" method="POST">
                 @csrf
                 <div class="form-group">

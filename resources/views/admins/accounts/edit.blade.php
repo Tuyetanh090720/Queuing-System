@@ -41,12 +41,12 @@
                             <input type="text" class="form-control" name="accountLogin" value="{{$account->accountLogin}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="accountPw">Mật khẩu</label>
-                            <input type="text" class="form-control" name="accountPw" value="{{$account->accountPw}}" required>
+                            <label for="password">Mật khẩu</label>
+                            <input type="text" class="form-control" name="password" value="{{$account->password}}" required>
                         </div>
                         <div class="form-group">
                             <label for="password-confirm">Nhập lại mật khẩu</label>
-                            <input type="text" class="form-control" name="password-confirm" value="{{$account->accountPw}}" required>
+                            <input type="text" class="form-control" name="password-confirm" value="{{$account->password}}" required>
                         </div>
                         <div class="select-input">
                             <div class="dropdown">

@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="rights">
         <div class="container-block">
-            <span class="title-page">Danh sách vai trò</span>
+            <span class="title-page">Danh sách quyền vai trò</span>
             <div class="filter-block search-rights">
                 <div class="d-flex justify-content-end">
                     <div class="form-group">

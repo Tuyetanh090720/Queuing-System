@@ -1,7 +1,7 @@
 @extends('layouts.admins')
 @section('number-add')
 <div class="container-fluid">
-    <span class="title-page">Quản lý dịch vụ</span>
+    <span class="title-page">Quản lý cấp số</span>
     <div class="container-white">
         <span class="title-center">Cấp số mới</span><br/>
         <form method="POST" action="/admins/numbers/add">

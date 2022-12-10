@@ -1,7 +1,7 @@
 @extends('layouts.admins')
 @section('service-edit')
 <div class="container-fluid">
-    <span class="title-page">Quản lý thiết bị</span>
+    <span class="title-page">Quản lý dịch vụ</span>
     <div class="container-white">
         <div class="service-add">
             <span class="title-add">Thông tin dịch vụ</span>

@@ -1,10 +1,10 @@
 @extends('layouts.admins')
 @section('device-type-edit')
 <div class="container-fluid">
-    <span class="title-page">Quản lý thiết bị</span>
+    <span class="title-page">Quản lý loại thiết bị</span>
     <div class="container-white">
         <div class="device-detail">
-            <span class="title-add">Thông tin thiết bị</span>
+            <span class="title-add">Thông tin loại thiết bị</span>
             <form method="POST" action="/admins/device_types/edit/{{$deviceType->deviceTypeId}}">
                 @csrf
                 <div class="form-group">

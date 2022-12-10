@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="sb-sidenav-footer">
-                <div><i class="fa fa-arrow-right-from-bracket"></i>Đăng xuất</div>
+                <div><i class="fa fa-arrow-right-from-bracket"></i><a href="/logout" style="color: #FF8A00">Đăng xuất</a></div>
             </div>
             </nav>
         </div>

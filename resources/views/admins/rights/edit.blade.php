@@ -1,10 +1,10 @@
 @extends('layouts.admins')
 @section('right-edit')
 <div class="container-fluid">
-    <span class="title-page">Quản lý dịch vụ</span>
+    <span class="title-page">Quản lý vai trò</span>
     <div class="container-white">
         <div class="right-edit">
-            <span class="title-add">Thêm vai trò</span>
+            <span class="title-add">Sửa vai trò</span>
             <form action="/admins/rights/edit/{{$right->rightId}}" method="POST">
                 @csrf
                 <div class="row">

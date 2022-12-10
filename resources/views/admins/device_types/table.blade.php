@@ -6,7 +6,6 @@
             <th>Ngày tạo</th>
             <th>Ngày cập nhật</th>
             <th></th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -19,11 +18,6 @@
                     <td>{{$item->updated_at}}</td>
                     <td style="text-align: center;">
                         <a href="/admins/device_types/edit/{{$item->deviceTypeId}}">Cập nhật
-                            <ion-icon name="create-outline"></ion-icon>
-                        </a>
-                    </td>
-                    <td style="text-align: center;">
-                        <a href="/admins/device_types/delete/{{$item->deviceTypeId}}">Xóa
                             <ion-icon name="create-outline"></ion-icon>
                         </a>
                     </td>

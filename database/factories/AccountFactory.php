@@ -20,7 +20,7 @@ class AccountFactory extends Factory
             'accountPhone' => $this->faker->phoneNumber(),
             'accountEmail' => $this->faker->email(),
             'accountActiveST' => $this->faker->sentence(3, true),
-            'rightId' => $this->faker->numberBetween($min = 1, $max = 5),
+            'rightId' => $this->faker->numberBetween($min = 1, $max = 3),
             'created_at' => $this->faker->date(),
             'updated_at' => $this->faker->date(),
         ];

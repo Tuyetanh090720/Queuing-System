@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="numbers">
         <div class="container-block">
-            <span class="title-page">Danh sách dịch vụ</span>
+            <span class="title-page">Danh sách cấp số</span>
             <div class="filter-block">
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm 6">

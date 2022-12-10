@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="accounts-diary">
         <div class="container-block">
-            <span class="title-page">Danh sách dịch vụ</span>
+            <span class="title-page">Danh sách nhật ký hoạt động</span>
             <div class="filter-block">
                 <div class="row justify-content-sb">
                     <div class="col-lg-4 col-md-4 col-sm 6">

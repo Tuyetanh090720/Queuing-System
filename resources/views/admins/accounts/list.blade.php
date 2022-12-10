@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="accounts">
         <div class="container-block">
-            <span class="title-page">Danh sách dịch vụ</span>
+            <span class="title-page">Danh sách tài khoản</span>
             <div class="filter-block">
                 <div class="row justify-content-sb">
                     <div class="col-lg-4 col-md-4 col-sm 6">

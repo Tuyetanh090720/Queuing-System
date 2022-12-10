@@ -14,8 +14,8 @@ class DeviceDetailFactory extends Factory
     public function definition()
     {
         return [
-            'deviceId' => $this->faker->numberBetween($min = 1, $max = 5),
-            'serviceId' => $this->faker->numberBetween($min = 1, $max = 5),
+            'deviceId' => $this->faker->numberBetween($min = 1, $max = 3),
+            'serviceId' => $this->faker->numberBetween($min = 1, $max = 3),
             'created_at' => $this->faker->date(),
             'updated_at' => $this->faker->date(),
         ];

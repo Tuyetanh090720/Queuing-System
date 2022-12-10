@@ -29,6 +29,7 @@
                     @if ($item->numberST == 'Bỏ qua')
                         <td><i class="fa fa-circle" style="color: #6C7585"></i> Bỏ qua</td>
                     @endif
+
                     <td>{{$item->numberSupply}}</td>
                     <td style="text-align: center;">
                         <a href="/admins/numbers/detail/{{$item->numberId}}">Chi tiết

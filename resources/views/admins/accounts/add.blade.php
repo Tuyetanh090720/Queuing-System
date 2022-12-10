@@ -1,7 +1,7 @@
 @extends('layouts.admins')
 @section('account-add')
 <div class="container-fluid">
-    <span class="title-page">Quản lý dịch vụ</span>
+    <span class="title-page">Quản lý tài khoản</span>
     <div class="container-white">
         <div class="account-add">
             <span class="title-add">Thông tin tài khoản</span>
@@ -42,11 +42,11 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Mật khẩu</label>
-                            <input type="text" class="form-control" name="password" value="{{ old('password') }}" autocomplete="password" required>
+                            <input type="password" class="form-control" name="password" value="{{ old('password') }}" autocomplete="password" required>
                         </div>
                         <div class="form-group">
                             <label for="password-confirm">Nhập lại mật khẩu</label>
-                            <input type="text" class="form-control" name="password-confirm" value="{{ old('password-confirm') }}" autocomplete="accountPw" required>
+                            <input type="password" class="form-control" name="password-confirm" value="{{ old('password-confirm') }}" autocomplete="accountPw" required>
                         </div>
                         <div class="select-input">
                             <div class="dropdown">

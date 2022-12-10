@@ -1,10 +1,10 @@
 @extends('layouts.admins')
 @section('number-detail')
 <div class="container-fluid">
-    <span class="title-page">Quản lý dịch vụ</span>
+    <span class="title-page">Quản lý cấp số</span>
     <div class="container-block">
         <div class="container-white">
-            <span class="title-add">Thông tin dịch vụ</span>
+            <span class="title-add">Thông tin cấp số</span>
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12" style="padding-right:25px">
                     <div class="detail-group">
